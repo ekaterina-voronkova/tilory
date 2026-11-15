@@ -62,7 +62,8 @@ difficulty.
 - **Reference image.** Off / Peek (hold a button to see the picture faded behind the board, release to hide) /
   Always (a small thumbnail in the corner). Default: Off in Surprise, Peek in Own pick.
 - **The board always fits the screen.** No zoom, no panning. The largest grid offered is limited so that a tile is not
-  smaller than a comfortable touch size. **Proposal:** minimum tile 40 dp.
+  smaller than a comfortable touch size. The minimum is decided by trying it on the owner's phone: the first build
+  makes it adjustable in a test setting, starting at 40 dp.
 
 ## 5. Skip
 - A Skip button is always visible during a puzzle. No confirmation, no penalty. The tiles disappear at once.
@@ -185,10 +186,11 @@ Main ──► New puzzle options ──► Puzzle ──► Completion ──�
 6. **Publishing:** domain, privacy policy, Play Store listing.
 
 ## 15. Open questions
-1. The remaining proposals: displacing order for groups (§3), presets and the 40 dp minimum tile (§4), timer hidden
+1. The remaining proposals: displacing order for groups (§3), presets (§4), timer hidden
    during play (§6), "Play again" in History (§7), longest side 2048 px (§9), `FLAG_SECURE` in Surprise (§12),
    minSdk 28 (§13).
-2. To check on the owner's phone: whether OneDrive appears in the system file picker (§9).
+2. To check on the owner's phone: whether OneDrive appears in the system file picker (§9); the minimum tile size
+   (§4), tried with an adjustable test setting.
 
 Decided: groups can break when something is dropped on them (§3); the board always fits the screen (§4); the owner's
 phone is a Xiaomi Redmi 13 on Android 16 (§13).
