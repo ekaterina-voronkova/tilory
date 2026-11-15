@@ -38,8 +38,8 @@ difficulty.
 - **The only action is dragging.** Touch a tile and drag it; the tile (or its whole group, see below) follows the
   finger and lands on the cells under it when released.
 - **Displacing.** The tiles that were on the target cells move into the cells the dragged tiles left. For a single
-  tile this is a plain swap. For a group, displaced tiles fill the freed cells in reading order (row by row, left to
-  right). **Proposal.**
+  tile this is a plain swap. For a group, each displaced tile moves back against the drag direction until it reaches a
+  freed cell, so displaced tiles keep their arrangement where possible. **Proposal** (as built in 0.1.0).
 - **Gluing.** After each drop, two tiles that touch on the board and also touch the same way in the original picture
   glue together. Glued tiles form a group: dragging any of its tiles moves the whole group.
 - **Groups can break.** A group that something is dropped on can fall apart: its covered tiles are displaced like any
@@ -55,7 +55,7 @@ difficulty.
 
 ## 4. Difficulty
 - **Grid size.** Chosen as a number of tiles; the game picks rows × columns so that the tiles are as close to square as
-  possible for the photo's proportions, then crops the photo to fit the grid (centre crop, small loss at the edges).
+  possible for the photo's proportions. The photo is not cropped, so tiles can be slightly rectangular.
   Range from 3 × 3 up to about 12 × 16.
 - **Presets.** **Proposal:** Easy ≈ 12 tiles (3 × 4), Medium ≈ 48 (6 × 8), Hard ≈ 108 (9 × 12), Custom (any size in
   the range). Each mode remembers its own last choice.
@@ -166,7 +166,8 @@ Main ──► New puzzle options ──► Puzzle ──► Completion ──�
 
 ## 13. Technical foundation
 - Kotlin, Jetpack Compose, Navigation Compose, a single activity.
-- Room for photos, puzzle state and history; DataStore for settings.
+- Storage: in 0.1.0 one JSON file (puzzle state, history, settings) written atomically after every change. Room
+  comes with Surprise, when there is a photo catalogue to query.
 - The board is drawn from one bitmap: each tile is a region of it, so no tiles are saved as separate images.
 - `androidx.exifinterface` for orientation; `ImageDecoder` for decoding, including HEIC.
 - The owner's phone: Xiaomi Redmi 13, Android 16. It is the main test device.
