@@ -41,11 +41,11 @@ difficulty.
   tile this is a plain swap. For a group, displaced tiles fill the freed cells in reading order (row by row, left to
   right). **Proposal.**
 - **Gluing.** After each drop, two tiles that touch on the board and also touch the same way in the original picture
-  glue together. Glued tiles form a group: dragging any of its tiles moves the whole group. Glue is permanent: a group
-  never falls apart.
-- **Dropping a group over part of another group.** A drop must not break another group. **Proposal:** the other group
-  moves as a whole into the freed cells if its shape fits there; otherwise the dragged group is shifted to the nearest
-  position where every displaced tile or group fits; if there is none, the drop is cancelled and the group returns.
+  glue together. Glued tiles form a group: dragging any of its tiles moves the whole group.
+- **Groups can break.** A group that something is dropped on can fall apart: its covered tiles are displaced like any
+  others, its uncovered tiles stay where they are. After the drop the glue is worked out again from scratch: tiles that
+  still touch correctly stay glued, tiles that were pulled apart are no longer glued. So a group is simply a set of
+  tiles that currently touch correctly; the dragged group itself always stays whole.
 - **Edges.** A group dropped partly off the board is shifted inwards to the nearest position where it fits entirely.
 - **Feedback.** A short glue animation and a light vibration when tiles glue (vibration can be turned off).
 - **Solved** when all tiles form a single group. Since the board has exactly as many cells as tiles, a single group
@@ -61,8 +61,8 @@ difficulty.
   the range). Each mode remembers its own last choice.
 - **Reference image.** Off / Peek (hold a button to see the picture faded behind the board, release to hide) /
   Always (a small thumbnail in the corner). Default: Off in Surprise, Peek in Own pick.
-- **Small screens.** The board always fits the screen; the largest grid is limited so that a tile is not smaller than
-  a comfortable touch size. **Proposal:** minimum tile 40 dp; no zoom or panning in the first version.
+- **The board always fits the screen.** No zoom, no panning. The largest grid offered is limited so that a tile is not
+  smaller than a comfortable touch size. **Proposal:** minimum tile 40 dp.
 
 ## 5. Skip
 - A Skip button is always visible during a puzzle. No confirmation, no penalty. The tiles disappear at once.
@@ -128,7 +128,8 @@ difficulty.
 Goal: no private photos, screenshots, documents or receipts in Surprise. On the device only, never a cloud AI. Layers,
 cheapest first: simple rules (folder or file name "Screenshots", no camera EXIF data, screen-like proportions) →
 on-device text recognition (ML Kit OCR: a lot of text means a document, receipt or chat) → an on-device NSFW model
-(TFLite) → optionally Gemini Nano on phones that support it. A queue of 3–5 photos checked in advance keeps the next
+(TFLite) → optionally Gemini Nano on phones that support it (the supported list is mostly flagships; the Redmi 13 is
+most likely not on it, to check when this stage starts). A queue of 3–5 photos checked in advance keeps the next
 puzzle instant. Until this exists, choosing the Surprise folders carefully is the filter.
 
 ## 11. Screens and navigation
@@ -167,7 +168,9 @@ Main ──► New puzzle options ──► Puzzle ──► Completion ──�
 - Room for photos, puzzle state and history; DataStore for settings.
 - The board is drawn from one bitmap: each tile is a region of it, so no tiles are saved as separate images.
 - `androidx.exifinterface` for orientation; `ImageDecoder` for decoding, including HEIC.
-- **Proposal:** minSdk 28 (Android 9; `ImageDecoder` with HEIC support), target the latest SDK.
+- The owner's phone: Xiaomi Redmi 13, Android 16. It is the main test device.
+- **Proposal:** minSdk 28 (Android 9; `ImageDecoder` with HEIC support), target the latest SDK. The owner's phone is far
+  above it, so the choice matters only for publishing.
 - Game logic (grid, shuffle, displacing, gluing, completion) in plain Kotlin with no Android dependencies, covered by
   unit tests.
 
@@ -182,9 +185,10 @@ Main ──► New puzzle options ──► Puzzle ──► Completion ──�
 6. **Publishing:** domain, privacy policy, Play Store listing.
 
 ## 15. Open questions
-1. Dropping a group over part of another group (§3): is the proposed rule good, or is something simpler better?
-2. Large grids on a phone (§4): limit the size so the board always fits, or allow zoom and panning?
-3. The owner's phone model and Android version: decides minSdk (§13), whether OneDrive shows in the file picker (§9)
-   and whether Gemini Nano is available (§10).
-4. The remaining proposals: presets (§4), timer hidden during play (§6), "Play again" in History (§7), longest side
-   2048 px (§9), `FLAG_SECURE` in Surprise (§12).
+1. The remaining proposals: displacing order for groups (§3), presets and the 40 dp minimum tile (§4), timer hidden
+   during play (§6), "Play again" in History (§7), longest side 2048 px (§9), `FLAG_SECURE` in Surprise (§12),
+   minSdk 28 (§13).
+2. To check on the owner's phone: whether OneDrive appears in the system file picker (§9).
+
+Decided: groups can break when something is dropped on them (§3); the board always fits the screen (§4); the owner's
+phone is a Xiaomi Redmi 13 on Android 16 (§13).
