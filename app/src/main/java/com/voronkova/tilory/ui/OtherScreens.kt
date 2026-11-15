@@ -242,33 +242,6 @@ fun SettingsScreen(vm: TiloryViewModel) {
                 )
             }
 
-            HorizontalDivider()
-            Text(stringResource(R.string.min_tile), style = MaterialTheme.typography.titleMedium)
-            Text(
-                stringResource(R.string.min_tile_hint),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            var minTile by remember { mutableFloatStateOf(settings.minTileDp.toFloat()) }
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                Box(
-                    Modifier
-                        .size(minTile.roundToInt().dp)
-                        .background(MaterialTheme.colorScheme.primary, MaterialTheme.shapes.extraSmall),
-                )
-                Text(stringResource(R.string.min_tile_value, minTile.roundToInt()))
-            }
-            Slider(
-                value = minTile,
-                onValueChange = { minTile = it },
-                onValueChangeFinished = {
-                    val dp = minTile.roundToInt()
-                    vm.updateSettings { it.copy(minTileDp = dp) }
-                },
-                valueRange = 24f..72f,
-                steps = 11,
-            )
-
             Spacer(Modifier.size(16.dp))
             Text(
                 stringResource(R.string.version, version),

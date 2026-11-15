@@ -43,9 +43,10 @@ data class Settings(
     val ownTiles: Int = Preset.MEDIUM.tiles,
     val ownReference: ReferenceMode = ReferenceMode.PEEK,
     val vibration: Boolean = true,
-    /** Test setting: the smallest tile allowed, in dp (design §4, #10). */
-    val minTileDp: Int = 40,
 )
+
+/** The smallest tile allowed, in dp; limits the largest grid (design §4, #17). */
+const val MIN_TILE_DP = 40
 
 @Serializable
 data class AppData(

@@ -43,8 +43,5 @@
     <string name="play_again">Play again</string>
     <string name="defaults_title">New puzzles</string>
     <string name="vibration">Vibration when tiles glue</string>
-    <string name="min_tile">Minimum tile size (test)</string>
-    <string name="min_tile_hint">Limits the largest grid. Try different sizes on your phone.</string>
-    <string name="min_tile_value">%d dp</string>
     <string name="version">Version %s</string>
 </resources>

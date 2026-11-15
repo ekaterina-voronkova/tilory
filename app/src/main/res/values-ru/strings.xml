@@ -42,8 +42,5 @@
     <string name="play_again">Собрать ещё раз</string>
     <string name="defaults_title">Новые пазлы</string>
     <string name="vibration">Вибрация при склейке</string>
-    <string name="min_tile">Минимальный размер кусочка (тест)</string>
-    <string name="min_tile_hint">Ограничивает самую большую сетку. Попробуйте разные размеры на своём телефоне.</string>
-    <string name="min_tile_value">%d dp</string>
     <string name="version">Версия %s</string>
 </resources>

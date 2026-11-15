@@ -39,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.voronkova.tilory.R
+import com.voronkova.tilory.data.MIN_TILE_DP
 import com.voronkova.tilory.data.Photo
 import com.voronkova.tilory.data.Preset
 import com.voronkova.tilory.data.ReferenceMode
@@ -51,7 +52,7 @@ private const val PUZZLE_CHROME_DP = 150f
 private const val PUZZLE_SIDE_MARGIN_DP = 16f
 
 @Composable
-fun maxGridFor(photo: Photo, minTileDp: Int): Grid {
+fun maxGridFor(photo: Photo, minTileDp: Int = MIN_TILE_DP): Grid {
     val config = LocalConfiguration.current
     val availW = config.screenWidthDp - PUZZLE_SIDE_MARGIN_DP
     val availH = config.screenHeightDp - PUZZLE_CHROME_DP
@@ -65,7 +66,7 @@ fun maxGridFor(photo: Photo, minTileDp: Int): Grid {
 fun OptionsScreen(vm: TiloryViewModel, photo: Photo) {
     val data by vm.data.collectAsStateWithLifecycle()
     val settings = data.settings
-    val maxGrid = maxGridFor(photo, settings.minTileDp)
+    val maxGrid = maxGridFor(photo)
     val maxTiles = maxGrid.count.coerceAtLeast(9)
 
     var preset by remember {
