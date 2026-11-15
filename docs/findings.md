@@ -53,3 +53,12 @@ Detailed release history. Issues are the index; this file is the detail.
 - Build: local, same toolchain and debug key.
 - Checked: 15 unit tests, APK badging 0.3.1. Not checked: on the phone. First release reachable by self-update (#20).
 - Retention: v0.1.1 release deleted (tag kept); on GitHub now v0.3.1, v0.3.0, v0.2.0.
+
+## v0.4.0 — watercolour icon, Tilory colours, completion buttons (#26)
+- Commit: 31bf192. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.4.0
+- Changes: adaptive icon from the owner's watercolour (layers made with ChatGPT, scaled to 60 dp of 108 dp; Play icon in
+  store/icon-512.png) (#24); fixed palette from the painting with a wallpaper-colour option (#25); completion buttons
+  in one bottom row over the photo area, so the photo does not move (#22). versionCode 6.
+- Build: local, same toolchain and debug key.
+- Checked: 15 unit tests, lint clean, APK badging 0.4.0 with the adaptive icon. Not checked: on the phone.
+- Retention: v0.2.0 release deleted (tag kept); on GitHub now v0.4.0, v0.3.1, v0.3.0.
