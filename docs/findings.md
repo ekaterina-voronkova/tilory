@@ -31,3 +31,17 @@ Detailed release history. Issues are the index; this file is the detail.
   clean succeeded.
 - Checked: 12 unit tests, lint without errors, APK badging shows 0.2.0 and the VIBRATE permission. Not checked: on the
   phone.
+
+## v0.3.0 — self-update (#21)
+- Commit: f8f6d49. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.3.0
+- Change: self-update from GitHub releases (#20) — check once per launch (`/releases?per_page=10`, pre-releases
+  included, numeric compare), DownloadManager into external files `update/`, id and version in SharedPreferences,
+  0.5 s polling while on screen, DOWNLOAD_COMPLETE receiver with a "tap to install" notification, onResume fallback,
+  package/version check before the FileProvider hand-off. New permissions: INTERNET, REQUEST_INSTALL_PACKAGES,
+  POST_NOTIFICATIONS. versionCode 4.
+- Build: local, same toolchain and debug key. A lint run failed once on a jar locked by another process; it passed
+  after `gradle --stop`.
+- Checked: 15 unit tests (version compare, release pick), lint without errors, APK badging shows 0.3.0 and the new
+  permissions, the live releases API returns the fields the parser reads. Not checked: any of it on the phone — the
+  updater can first be tried when a release newer than 0.3.0 exists.
+- Retention: v0.1.0 release deleted (tag kept); on GitHub now v0.3.0, v0.2.0, v0.1.1.
