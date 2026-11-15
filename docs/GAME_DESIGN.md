@@ -157,8 +157,22 @@ Main ──► New puzzle options ──► Puzzle ──► Completion ──�
 ```
 
 ## 12. Privacy
-- Everything stays on the device. The first version has no internet permission at all; it is added only with the
-  Google Photos and OneDrive stages, and only for those.
+- Photos stay on the device. Since 0.3.0 the app has the internet permission, used only to check GitHub releases for
+  a newer Tilory once per launch and to download it (#20). Google Photos and OneDrive will use it for their stages.
+
+## 12a. Self-update (#20)
+- On launch the app asks the GitHub releases API for a newer version (numbers compared, pre-releases count). If there
+  is one, the main screen shows "Version X is available · size" with Download.
+- The system download manager downloads it, so minimising or killing the app does not stop it; the shade shows the
+  progress, and the main screen too while visible.
+- When it is done: the installer opens if the app is on screen; otherwise a notification "Tilory X is downloaded — tap
+  to install" (own "Updates" channel); otherwise the installer opens on the next return to the app. "Install" stays
+  on the main screen until the new version is installed.
+- The file is checked (package and version) before the installer opens. Updates install over the old version only
+  while builds are signed with the same key.
+- On Xiaomi HyperOS without the Autostart permission, swiping the app away stops it and the "downloaded" notification
+  may not come; the installer then opens when the app is opened again.
+- Google Play forbids self-update, so a Play build must leave it out.
 - No analytics, no ads, no account.
 - In Surprise the screen is excluded from the recent-apps thumbnail (`FLAG_SECURE` during a Surprise puzzle) so the
   picture does not leak there. **Proposal** (it also blocks screenshots during that puzzle).

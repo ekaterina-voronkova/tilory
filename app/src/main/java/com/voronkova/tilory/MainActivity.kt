@@ -8,6 +8,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.content.IntentCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.voronkova.tilory.update.AppState
+import kotlinx.coroutines.launch
 import com.voronkova.tilory.ui.TiloryApp
 import com.voronkova.tilory.ui.TiloryTheme
 import com.voronkova.tilory.ui.TiloryViewModel
@@ -19,11 +24,29 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         if (savedInstanceState == null) handleShare(intent)
+        // Open the system installer when a downloaded update is ready (#20).
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                vm.update.installRequests.collect { runCatching { startActivity(it) } }
+            }
+        }
         setContent {
             TiloryTheme {
                 TiloryApp(vm)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        AppState.foreground = true
+        vm.update.onResume()
+    }
+
+    override fun onPause() {
+        AppState.foreground = false
+        vm.update.onPause()
+        super.onPause()
     }
 
     override fun onNewIntent(intent: Intent) {

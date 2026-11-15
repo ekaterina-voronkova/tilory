@@ -44,4 +44,17 @@
     <string name="defaults_title">New puzzles</string>
     <string name="vibration">Vibration when tiles glue</string>
     <string name="version">Version %s</string>
+    <string name="update_available">Version %1$s is available · %2$s</string>
+    <string name="update_download">Download</string>
+    <string name="update_downloading">Downloading %1$s of %2$s</string>
+    <string name="update_ready">Version %s is downloaded</string>
+    <string name="update_install">Install</string>
+    <string name="update_retry">Try again</string>
+    <string name="update_failed_space">Update not downloaded: not enough space.</string>
+    <string name="update_failed_network">Update not downloaded: network problem.</string>
+    <string name="update_failed_file">The downloaded update is damaged.</string>
+    <string name="update_failed_other">Update not downloaded.</string>
+    <string name="update_channel">Updates</string>
+    <string name="update_notif_title">Tilory %s is downloaded</string>
+    <string name="update_notif_text">Tap to install</string>
 </resources>

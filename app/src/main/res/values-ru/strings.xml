@@ -43,4 +43,17 @@
     <string name="defaults_title">Новые пазлы</string>
     <string name="vibration">Вибрация при склейке</string>
     <string name="version">Версия %s</string>
+    <string name="update_available">Есть версия %1$s · %2$s</string>
+    <string name="update_download">Скачать</string>
+    <string name="update_downloading">Качаю %1$s из %2$s</string>
+    <string name="update_ready">Версия %s скачана</string>
+    <string name="update_install">Установить</string>
+    <string name="update_retry">Ещё раз</string>
+    <string name="update_failed_space">Обновление не скачалось: не хватает места.</string>
+    <string name="update_failed_network">Обновление не скачалось: проблема с сетью.</string>
+    <string name="update_failed_file">Скачанное обновление повреждено.</string>
+    <string name="update_failed_other">Обновление не скачалось.</string>
+    <string name="update_channel">Обновления</string>
+    <string name="update_notif_title">Tilory %s скачана</string>
+    <string name="update_notif_text">Нажмите, чтобы установить</string>
 </resources>

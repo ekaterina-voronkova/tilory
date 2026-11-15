@@ -18,6 +18,7 @@ import com.voronkova.tilory.data.Settings
 import com.voronkova.tilory.data.Store
 import com.voronkova.tilory.game.Board
 import com.voronkova.tilory.game.Grid
+import com.voronkova.tilory.update.UpdateController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -42,6 +43,7 @@ sealed interface Screen {
 class TiloryViewModel(app: Application) : AndroidViewModel(app) {
     private val store = Store(app)
     val photos = PhotoImporter(app)
+    val update = UpdateController(app, viewModelScope)
     private val io = Dispatchers.IO.limitedParallelism(1)
 
     private val _data = MutableStateFlow(store.load())

@@ -80,6 +80,7 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Spacer(Modifier.height(8.dp))
+            UpdateRow(vm.update)
 
             if (current != null) {
                 val board = remember(current) { Board(current.rows, current.cols, current.tiles) }
