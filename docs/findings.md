@@ -15,3 +15,9 @@ Detailed release history. Issues are the index; this file is the detail.
   or phone was connected).
 - Decisions made while building: the photo is not cropped (tiles may be slightly rectangular); displaced tiles walk
   back against the drag direction into the freed cells; storage is a JSON file instead of Room for now.
+
+## v0.1.1 — thinner seams (#15)
+- Commit: 5a466ac. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.1.1
+- Change: seam width in `BoardView` 1.5 dp → 1 dp (#14), versionCode 2.
+- Build: local, same toolchain and debug key as v0.1.0.
+- Checked: unit tests pass, APK builds. Not checked: how it looks on the phone.
