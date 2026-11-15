@@ -75,6 +75,10 @@
 ## Releases
 - One issue per release ("Release v1.2.3"), labelled `claude`. It lists the issues the release contains, and is closed
   with the link to the release, the tag's commit and the build run.
+- Keep only the current release and the two before it on GitHub. After publishing a new release, delete the older
+  ones (`gh release delete <tag> --yes`, without `--cleanup-tag`: the git tags stay, so the findings log and issues
+  still point at real commits). Note the deleted releases in the new release issue. The owner asked for this; no need
+  to ask again.
 - A findings log in the repository (`docs/findings.md`, created with the first release) keeps the detailed release
   history:
   - what changed;
