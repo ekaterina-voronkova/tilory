@@ -248,7 +248,7 @@ private fun BoardView(
             val tw = size.width / board.cols
             val th = size.height / board.rows
             val dragging = dragGroup.toHashSet()
-            val seam = 1.5.dp.toPx()
+            val seam = 1.dp.toPx()
             val outline = 2.5.dp.toPx()
 
             // Tiles that are not being dragged; the dragged group's cells show as empty slots.
