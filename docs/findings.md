@@ -45,3 +45,11 @@ Detailed release history. Issues are the index; this file is the detail.
   permissions, the live releases API returns the fields the parser reads. Not checked: any of it on the phone — the
   updater can first be tried when a release newer than 0.3.0 exists.
 - Retention: v0.1.0 release deleted (tag kept); on GitHub now v0.3.0, v0.2.0, v0.1.1.
+
+## v0.3.1 — steady completion screen (#23)
+- Commit: 1b50310. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.3.1
+- Change: completion screen reuses the puzzle layout so the photo does not jump; solve time only in History (#22).
+  versionCode 5.
+- Build: local, same toolchain and debug key.
+- Checked: 15 unit tests, APK badging 0.3.1. Not checked: on the phone. First release reachable by self-update (#20).
+- Retention: v0.1.1 release deleted (tag kept); on GitHub now v0.3.1, v0.3.0, v0.2.0.
