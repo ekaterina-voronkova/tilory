@@ -69,6 +69,7 @@ fun UpdateRow(update: UpdateController) {
                     LinearProgressIndicator(
                         progress = { s.percent / 100f },
                         modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                        color = MaterialTheme.colorScheme.tertiary,
                     )
                 }
                 is UpdateUi.Ready -> ActionLine(

@@ -143,7 +143,11 @@ A list of the app's screens and how to get from one to another.
   with "remember and don't ask" to start right away next time.
 - **Completion:** the full photo, solve time, "Next puzzle", "History".
 - **History:** the gallery; tap → full-screen photo.
-- **Settings:** default difficulty per mode, reference image defaults, vibration, Surprise sources, hidden photos.
+- **Settings:** default difficulty per mode, reference image defaults, colours, vibration, Surprise sources, hidden
+  photos.
+- **Colours** (#25): "Tilory colours" (default) come from the icon watercolour — paper cream background, flower blue,
+  leaf green, ink-navy text, mustard accents; navy background in dark mode. "Wallpaper colours" use Android's dynamic
+  colour (Android 12+ only; the switch is hidden on older systems).
 - **Surprise sources:** the folders (later: albums) in use; add or remove; how many photos each has left.
 - **Hidden photos:** the list, with restore.
 
