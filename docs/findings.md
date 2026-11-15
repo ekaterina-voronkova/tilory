@@ -21,3 +21,13 @@ Detailed release history. Issues are the index; this file is the detail.
 - Change: seam width in `BoardView` 1.5 dp → 1 dp (#14), versionCode 2.
 - Build: local, same toolchain and debug key as v0.1.0.
 - Checked: unit tests pass, APK builds. Not checked: how it looks on the phone.
+
+## v0.2.0 — four levels, fixed tile size, vibration (#19)
+- Commit: 6914cee. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.2.0
+- Changes: presets 12 / 30 / 63 / 108 (#16); minimum tile fixed at 40 dp, slider removed (#17); glue vibration via
+  the vibrator with media usage instead of View haptic feedback, which the system drops when touch feedback is off
+  (#18); two lint errors fixed. versionCode 3.
+- Build: local, same toolchain and debug key. `gradle clean` failed on a locked build folder; the build without
+  clean succeeded.
+- Checked: 12 unit tests, lint without errors, APK badging shows 0.2.0 and the VIBRATE permission. Not checked: on the
+  phone.
