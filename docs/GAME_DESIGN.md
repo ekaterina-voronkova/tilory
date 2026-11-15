@@ -81,10 +81,10 @@ difficulty.
 
 ## 6. Completion
 1. The seams between tiles fade out and the whole photo is shown.
-2. The photo opens full screen; it can be zoomed and panned.
-3. Below it: the solve time, then the buttons "Next puzzle" and "History".
-- Solve time counts only while the puzzle is on screen (it pauses when the app is in the background).
-  **Proposal:** the timer is not shown during play, only on completion.
+2. The photo stays exactly where the board was (no jump) and can be zoomed and panned (#22).
+3. The top row has Home, "History" and "Next puzzle". The solve time is not shown here, only in History (#22).
+- Solve time counts only while the puzzle is on screen (it pauses when the app is in the background). It is not
+  shown during play.
 - The photo is added to History.
 
 ## 7. History

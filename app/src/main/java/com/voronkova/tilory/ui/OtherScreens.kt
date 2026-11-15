@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -63,34 +65,53 @@ import kotlin.math.roundToInt
 
 // --- Completion (design §6) ---
 
+/**
+ * Uses exactly the puzzle screen's layout (status bar, 56 dp top row, board area with 8 dp padding), so the solved
+ * photo stays where the board was (#22). The buttons live in the top row; the solve time is only in History.
+ */
 @Composable
 fun CompletionScreen(vm: TiloryViewModel, entry: HistoryEntry, onNext: () -> Unit) {
-    val image = rememberPhoto(vm, entry.photo, thumbnail = false)
-    Column(Modifier.fillMaxSize().navigationBarsPadding()) {
-        Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-            image?.let { ZoomableImage(it) }
-        }
-        Column(
-            Modifier.fillMaxWidth().padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+    // The puzzle's bitmap is still loaded right after solving; use it so there is no blank frame.
+    val puzzleImage by vm.image.collectAsStateWithLifecycle()
+    val stored = rememberPhoto(vm, entry.photo, thumbnail = false)
+    val image = puzzleImage ?: stored
+    Column(
+        Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .navigationBarsPadding(),
+    ) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .padding(horizontal = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                stringResource(R.string.solved_in, formatDuration(entry.elapsedMs)),
-                style = MaterialTheme.typography.titleLarge,
-            )
-            Button(onClick = onNext, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.next_puzzle)) }
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                TextButton(onClick = { vm.show(Screen.Home) }) { Text(stringResource(R.string.home)) }
-                TextButton(onClick = { vm.show(Screen.History) }) { Text(stringResource(R.string.history)) }
+            IconButton(onClick = { vm.show(Screen.Home) }) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.home))
             }
+            Spacer(Modifier.weight(1f))
+            TextButton(onClick = { vm.show(Screen.History) }) { Text(stringResource(R.string.history)) }
+            Button(onClick = onNext, modifier = Modifier.padding(start = 4.dp, end = 8.dp)) {
+                Text(stringResource(R.string.next_puzzle))
+            }
+        }
+        Box(
+            Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .padding(8.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            image?.let { ZoomableImage(it, background = false) }
         }
     }
 }
 
 /** A full-screen photo: pinch to zoom, drag to pan, double tap to reset. */
 @Composable
-fun ZoomableImage(image: ImageBitmap) {
+fun ZoomableImage(image: ImageBitmap, background: Boolean = true) {
     var scale by remember { mutableFloatStateOf(1f) }
     var offset by remember { mutableStateOf(Offset.Zero) }
     Image(
@@ -99,7 +120,7 @@ fun ZoomableImage(image: ImageBitmap) {
         contentScale = ContentScale.Fit,
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceContainerLowest)
+            .then(if (background) Modifier.background(MaterialTheme.colorScheme.surfaceContainerLowest) else Modifier)
             .pointerInput(Unit) {
                 detectTapGestures(onDoubleTap = {
                     scale = 1f
