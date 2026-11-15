@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Tilory</string>
+    <string name="app_name" translatable="false">Tilory</string>
     <string name="home_tagline">Puzzles from your own photos</string>
     <string name="continue_title">Continue</string>
     <string name="continue_detail">%1$d × %2$d · %3$d%% assembled</string>

@@ -24,7 +24,10 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
@@ -116,8 +119,9 @@ fun TiloryApp(vm: TiloryViewModel) {
 /** Loads a stored photo off the main thread; [thumbnail] gives a smaller copy for lists. */
 @Composable
 fun rememberPhoto(vm: TiloryViewModel, photo: Photo, thumbnail: Boolean): ImageBitmap? {
-    val bitmap by produceState<ImageBitmap?>(null, photo, thumbnail) {
-        value = withContext(Dispatchers.IO) {
+    var bitmap by remember(photo, thumbnail) { mutableStateOf<ImageBitmap?>(null) }
+    LaunchedEffect(photo, thumbnail) {
+        bitmap = withContext(Dispatchers.IO) {
             (if (thumbnail) vm.photos.loadThumbnail(photo) else vm.photos.load(photo))?.asImageBitmap()
         }
     }

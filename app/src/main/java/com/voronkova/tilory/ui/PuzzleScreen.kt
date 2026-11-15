@@ -1,7 +1,5 @@
 package com.voronkova.tilory.ui
 
-import android.os.Build
-import android.view.HapticFeedbackConstants
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -48,7 +46,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
@@ -185,7 +183,8 @@ private fun BoardView(
     vibration: Boolean,
     onMove: (Int, Int, Int) -> Boolean,
 ) {
-    val view = LocalView.current
+    val context = LocalContext.current
+    val haptics = remember(context) { Haptics(context) }
     val density = LocalDensity.current
     val seamAlpha by animateFloatAsState(if (solved) 0f else 1f, tween(900), label = "seams")
     val seamColor = MaterialTheme.colorScheme.background
@@ -228,14 +227,7 @@ private fun BoardView(
                             val dr = (dragOffset.y / th).roundToInt()
                             val dc = (dragOffset.x / tw).roundToInt()
                             reset()
-                            if (cell >= 0 && onMove(cell, dr, dc) && vibration) {
-                                val feedback = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                    HapticFeedbackConstants.CONFIRM
-                                } else {
-                                    HapticFeedbackConstants.VIRTUAL_KEY
-                                }
-                                view.performHapticFeedback(feedback)
-                            }
+                            if (cell >= 0 && onMove(cell, dr, dc) && vibration) haptics.glue()
                         },
                         onDragCancel = { reset() },
                         onDrag = { change, amount ->
