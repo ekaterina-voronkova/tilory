@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="launcher_background">#FFF4EDE4</color>
-    <color name="tile_a">#FF3F6E8C</color>
-    <color name="tile_b">#FFE08A4F</color>
-    <color name="tile_c">#FF7FA36B</color>
-    <color name="tile_d">#FFC95C6E</color>
+    <color name="icon_background">#FFF3F4F5</color>
 </resources>
