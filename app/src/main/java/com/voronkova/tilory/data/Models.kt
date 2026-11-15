@@ -36,7 +36,7 @@ data class HistoryEntry(
 )
 
 /** Difficulty presets as tile counts (design §4). */
-enum class Preset(val tiles: Int) { EASY(12), MEDIUM(48), HARD(108), CUSTOM(0) }
+enum class Preset(val tiles: Int) { EASY(12), MEDIUM(30), HARD(63), CHALLENGE(108), CUSTOM(0) }
 
 @Serializable
 data class Settings(

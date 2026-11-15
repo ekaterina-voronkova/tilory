@@ -57,8 +57,9 @@ difficulty.
 - **Grid size.** Chosen as a number of tiles; the game picks rows × columns so that the tiles are as close to square as
   possible for the photo's proportions. The photo is not cropped, so tiles can be slightly rectangular.
   Range from 3 × 3 up to about 12 × 16.
-- **Presets.** **Proposal:** Easy ≈ 12 tiles (3 × 4), Medium ≈ 48 (6 × 8), Hard ≈ 108 (9 × 12), Custom (any size in
-  the range). Each mode remembers its own last choice.
+- **Presets** (#16): Easy ≈ 12 tiles (3 × 4 for a 4:3 photo), Medium ≈ 30 (5 × 6), Hard ≈ 63 (7 × 9), Challenge
+  ≈ 108 (9 × 12), Custom (any size in the range). Each step adds about two cells per side. Grids above 108 proved
+  unplayable on the phone, so Challenge is the top preset. Each mode remembers its own last choice.
 - **Reference image.** Off / Peek (hold a button to see the picture faded behind the board, release to hide) /
   Always (a small thumbnail in the corner). Default: Off in Surprise, Peek in Own pick.
 - **The board always fits the screen.** No zoom, no panning. The largest grid offered is limited so that a tile is not

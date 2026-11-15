@@ -99,6 +99,14 @@ class BoardTest {
     }
 
     @Test
+    fun presetsGiveEvenStepsFor4By3() {
+        val grids = com.voronkova.tilory.data.Preset.entries
+            .filter { it.tiles > 0 }
+            .map { GridChooser.choose(it.tiles, 4f / 3f, 30, 30) }
+        assertEquals(listOf(Grid(3, 4), Grid(5, 6), Grid(7, 9), Grid(9, 12)), grids)
+    }
+
+    @Test
     fun gridChooserRespectsLimits() {
         val g = GridChooser.choose(200, 1f, 9, 9)
         assertTrue(g.rows <= 9 && g.cols <= 9)

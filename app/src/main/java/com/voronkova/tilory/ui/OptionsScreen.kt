@@ -189,6 +189,7 @@ fun presetLabel(p: Preset): String = stringResource(
         Preset.EASY -> R.string.preset_easy
         Preset.MEDIUM -> R.string.preset_medium
         Preset.HARD -> R.string.preset_hard
+        Preset.CHALLENGE -> R.string.preset_challenge
         Preset.CUSTOM -> R.string.preset_custom
     },
 )

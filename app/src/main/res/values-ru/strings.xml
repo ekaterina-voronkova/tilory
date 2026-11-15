@@ -23,6 +23,7 @@
     <string name="preset_easy">Лёгкий</string>
     <string name="preset_medium">Средний</string>
     <string name="preset_hard">Сложный</string>
+    <string name="preset_challenge">Вызов</string>
     <string name="preset_custom">Свой</string>
     <string name="grid_size">%1$d × %2$d, кусочков: %3$d</string>
     <string name="tiles_count">Кусочков: %d</string>
