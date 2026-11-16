@@ -57,7 +57,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.voronkova.tilory.R
-import com.voronkova.tilory.data.ColorSource
 import com.voronkova.tilory.data.HistoryEntry
 import com.voronkova.tilory.data.Preset
 import java.text.DateFormat
@@ -253,29 +252,6 @@ fun SettingsScreen(vm: TiloryViewModel) {
             }
             Text(stringResource(R.string.reference), style = MaterialTheme.typography.bodyMedium)
             ReferenceChips(settings.ownReference) { mode -> vm.updateSettings { it.copy(ownReference = mode) } }
-
-            if (wallpaperColorsAvailable) {
-                HorizontalDivider()
-                Text(stringResource(R.string.colors_title), style = MaterialTheme.typography.titleMedium)
-                androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    ColorSource.entries.forEach { source ->
-                        androidx.compose.material3.FilterChip(
-                            selected = settings.colors == source,
-                            onClick = { vm.updateSettings { it.copy(colors = source) } },
-                            label = {
-                                Text(
-                                    stringResource(
-                                        when (source) {
-                                            ColorSource.TILORY -> R.string.colors_tilory
-                                            ColorSource.WALLPAPER -> R.string.colors_wallpaper
-                                        },
-                                    ),
-                                )
-                            },
-                        )
-                    }
-                }
-            }
 
             HorizontalDivider()
             Row(verticalAlignment = Alignment.CenterVertically) {

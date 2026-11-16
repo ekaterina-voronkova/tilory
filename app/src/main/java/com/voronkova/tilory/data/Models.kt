@@ -43,12 +43,7 @@ data class Settings(
     val ownTiles: Int = Preset.MEDIUM.tiles,
     val ownReference: ReferenceMode = ReferenceMode.PEEK,
     val vibration: Boolean = true,
-    val colors: ColorSource = ColorSource.TILORY,
 )
-
-/** Interface colours (#25): from the icon painting, or from the wallpaper (Android 12+). */
-@Serializable
-enum class ColorSource { TILORY, WALLPAPER }
 
 /** The smallest tile allowed, in dp; limits the largest grid (design §4, #17). */
 const val MIN_TILE_DP = 40

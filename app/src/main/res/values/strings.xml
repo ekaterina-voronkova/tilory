@@ -57,7 +57,4 @@
     <string name="update_channel">Updates</string>
     <string name="update_notif_title">Tilory %s is downloaded</string>
     <string name="update_notif_text">Tap to install</string>
-    <string name="colors_title">Colors</string>
-    <string name="colors_tilory">Tilory colors</string>
-    <string name="colors_wallpaper">Wallpaper colors</string>
 </resources>

@@ -18,8 +18,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.LaunchedEffect
@@ -35,23 +37,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.voronkova.tilory.R
-import com.voronkova.tilory.data.ColorSource
 import com.voronkova.tilory.data.Photo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-/** Wallpaper colours exist only on Android 12+. */
-val wallpaperColorsAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-
+/** The phone's theme colours: wallpaper colours on Android 12+, the default Material scheme below (#30). */
 @Composable
-fun TiloryTheme(colors: ColorSource, content: @Composable () -> Unit) {
+fun TiloryTheme(content: @Composable () -> Unit) {
     val dark = isSystemInDarkTheme()
     val context = LocalContext.current
     val scheme = when {
-        colors == ColorSource.WALLPAPER && wallpaperColorsAvailable ->
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ->
             if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        dark -> TiloryDark
-        else -> TiloryLight
+        dark -> darkColorScheme()
+        else -> lightColorScheme()
     }
     MaterialTheme(colorScheme = scheme) {
         Surface(color = MaterialTheme.colorScheme.background, content = content)

@@ -56,7 +56,4 @@
     <string name="update_channel">Обновления</string>
     <string name="update_notif_title">Tilory %s скачана</string>
     <string name="update_notif_text">Нажмите, чтобы установить</string>
-    <string name="colors_title">Цвета</string>
-    <string name="colors_tilory">Цвета Tilory</string>
-    <string name="colors_wallpaper">Цвета обоев</string>
 </resources>
