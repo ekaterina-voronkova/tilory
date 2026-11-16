@@ -62,3 +62,11 @@ Detailed release history. Issues are the index; this file is the detail.
 - Build: local, same toolchain and debug key.
 - Checked: 15 unit tests, lint clean, APK badging 0.4.0 with the adaptive icon. Not checked: on the phone.
 - Retention: v0.2.0 release deleted (tag kept); on GitHub now v0.4.0, v0.3.1, v0.3.0.
+
+## v0.4.1 — game row at the bottom (#28)
+- Commit: e1a8185. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.4.1
+- Change: puzzle and completion screens share one layout with a 56 dp bottom row; completion Next puzzle centred
+  (#27). versionCode 7.
+- Build: local, same toolchain and debug key.
+- Checked: 15 unit tests, APK badging 0.4.1. Not checked: on the phone.
+- Retention: v0.3.0 release deleted (tag kept); on GitHub now v0.4.1, v0.4.0, v0.3.1.
