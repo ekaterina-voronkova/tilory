@@ -78,3 +78,12 @@ Detailed release history. Issues are the index; this file is the detail.
 - Build: local, same toolchain and debug key.
 - Checked: 15 unit tests, lint clean, APK badging 0.4.2. Not checked: on the phone.
 - Retention: v0.3.1 release deleted (tag kept); on GitHub now v0.4.2, v0.4.1, v0.4.0.
+
+## v0.5.0 — new main screen and launch splash (#37)
+- Commit: 09f4c45. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.5.0
+- Changes: picture title (#32), Android 12+ splash with icon and branding, window colour instead of the old beige
+  (#33), watercolour background cropped at the sides, dimmed in dark mode (#34), buttons at the bottom (#35),
+  untranslated italic tagline (#36). APK grew by ~1.2 MB (background JPEG, title PNG). versionCode 9.
+- Build: local, same toolchain and debug key.
+- Checked: 15 unit tests, lint clean, APK badging 0.5.0. Not checked: on the phone.
+- Retention: v0.4.0 release deleted (tag kept); on GitHub now v0.5.0, v0.4.2, v0.4.1.
