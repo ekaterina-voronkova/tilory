@@ -215,7 +215,9 @@ Main ──► New puzzle options ──► Puzzle ──► Completion ──�
 ## 15. Open questions
 1. The remaining proposals: displacing order for groups (§3), timer hidden during play (§6), "Play again" in History
    (§7), longest side 2048 px (§9), `FLAG_SECURE` in Surprise (§12), minSdk 28 (§13).
-2. To check on the owner's phone: whether OneDrive appears in the system file picker (§9).
+2. Checked on the owner's phone (0.5.0): the system file picker shows Recent, Images, Downloads, the phone storage and
+   Google Drive, but not OneDrive. Open: whether the OneDrive app is installed there (it adds itself when installed
+   and signed in); otherwise OneDrive needs stage 3 (§9, #7).
 
 Decided: groups can break when something is dropped on them (§3); the board always fits the screen (§4); four presets
 12 / 30 / 63 / 108 (§4); minimum tile 40 dp (§4); the owner's phone is a Xiaomi Redmi 13 on Android 16 (§13).
