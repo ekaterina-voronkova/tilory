@@ -70,3 +70,11 @@ Detailed release history. Issues are the index; this file is the detail.
 - Build: local, same toolchain and debug key.
 - Checked: 15 unit tests, APK badging 0.4.1. Not checked: on the phone.
 - Retention: v0.3.0 release deleted (tag kept); on GitHub now v0.4.1, v0.4.0, v0.3.1.
+
+## v0.4.2 — landscape icon, theme colours again (#31)
+- Commit: 9a9d974. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.4.2
+- Changes: flat landscape icon from the owner's ChatGPT set (#29); Tilory palette and colours switch removed, theme
+  colours again (#30). versionCode 8.
+- Build: local, same toolchain and debug key.
+- Checked: 15 unit tests, lint clean, APK badging 0.4.2. Not checked: on the phone.
+- Retention: v0.3.1 release deleted (tag kept); on GitHub now v0.4.2, v0.4.1, v0.4.0.
