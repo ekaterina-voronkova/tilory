@@ -87,12 +87,37 @@ fun PuzzleScreen(vm: TiloryViewModel) {
         }
     }
 
+    // The game row is at the bottom, where the completion screen has its buttons, so the photo area is the same on
+    // both screens and the solved photo does not move (#22, #27).
     Column(
         Modifier
             .fillMaxSize()
             .statusBarsPadding()
             .navigationBarsPadding(),
     ) {
+        Box(
+            Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .padding(8.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            val b = board
+            val img = image
+            if (b == null || img == null) {
+                CircularProgressIndicator()
+            } else {
+                BoardView(
+                    board = b,
+                    image = img,
+                    solved = solved,
+                    peek = peek,
+                    vibration = data.settings.vibration,
+                    onMove = vm::move,
+                )
+            }
+        }
+
         Row(
             Modifier
                 .fillMaxWidth()
@@ -122,29 +147,6 @@ fun PuzzleScreen(vm: TiloryViewModel) {
             }
             if (!solved) {
                 TextButton(onClick = vm::skip) { Text(stringResource(R.string.skip)) }
-            }
-        }
-
-        Box(
-            Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .padding(8.dp),
-            contentAlignment = Alignment.Center,
-        ) {
-            val b = board
-            val img = image
-            if (b == null || img == null) {
-                CircularProgressIndicator()
-            } else {
-                BoardView(
-                    board = b,
-                    image = img,
-                    solved = solved,
-                    peek = peek,
-                    vibration = data.settings.vibration,
-                    onMove = vm::move,
-                )
             }
         }
     }

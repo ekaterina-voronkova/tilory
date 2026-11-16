@@ -67,9 +67,9 @@ import kotlin.math.roundToInt
 // --- Completion (design §6) ---
 
 /**
- * The photo area repeats the puzzle screen's layout (status bar, 56 dp top row, board area with 8 dp padding), so
- * the solved photo stays where the board was (#22). The buttons sit in one row at the bottom, laid over the photo
- * area on a translucent strip, so they do not shrink it. The solve time is only in History.
+ * Same layout as the puzzle screen (status bar, photo area with 8 dp padding, 56 dp bottom row), so the solved photo
+ * stays exactly where the board was (#22, #27). Bottom row: Home, Next puzzle (centred), History. The solve time is
+ * only in History.
  */
 @Composable
 fun CompletionScreen(vm: TiloryViewModel, entry: HistoryEntry, onNext: () -> Unit) {
@@ -77,37 +77,34 @@ fun CompletionScreen(vm: TiloryViewModel, entry: HistoryEntry, onNext: () -> Uni
     val puzzleImage by vm.image.collectAsStateWithLifecycle()
     val stored = rememberPhoto(vm, entry.photo, thumbnail = false)
     val image = puzzleImage ?: stored
-    Box(Modifier.fillMaxSize()) {
-        Column(
+    Column(
+        Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .navigationBarsPadding(),
+    ) {
+        Box(
             Modifier
-                .fillMaxSize()
-                .statusBarsPadding()
-                .navigationBarsPadding(),
-        ) {
-            Spacer(Modifier.fillMaxWidth().height(56.dp))
-            Box(
-                Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                contentAlignment = Alignment.Center,
-            ) {
-                image?.let { ZoomableImage(it, background = false) }
-            }
-        }
-        Row(
-            Modifier
-                .align(Alignment.BottomCenter)
+                .weight(1f)
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background.copy(alpha = 0.85f))
-                .navigationBarsPadding()
-                .padding(horizontal = 8.dp, vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .padding(8.dp),
+            contentAlignment = Alignment.Center,
         ) {
-            TextButton(onClick = { vm.show(Screen.Home) }) { Text(stringResource(R.string.home)) }
-            Button(onClick = onNext) { Text(stringResource(R.string.next_puzzle)) }
-            TextButton(onClick = { vm.show(Screen.History) }) { Text(stringResource(R.string.history)) }
+            image?.let { ZoomableImage(it, background = false) }
+        }
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .padding(horizontal = 4.dp),
+        ) {
+            TextButton(onClick = { vm.show(Screen.Home) }, Modifier.align(Alignment.CenterStart)) {
+                Text(stringResource(R.string.home))
+            }
+            Button(onClick = onNext, Modifier.align(Alignment.Center)) { Text(stringResource(R.string.next_puzzle)) }
+            TextButton(onClick = { vm.show(Screen.History) }, Modifier.align(Alignment.CenterEnd)) {
+                Text(stringResource(R.string.history))
+            }
         }
     }
 }

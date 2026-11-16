@@ -82,8 +82,9 @@ difficulty.
 ## 6. Completion
 1. The seams between tiles fade out and the whole photo is shown.
 2. The photo stays exactly where the board was (no jump) and can be zoomed and panned (#22).
-3. One row of buttons at the bottom: Home (left), "Next puzzle" (centre), "History" (right), laid over the photo
-   area on a translucent strip so the photo does not move. The solve time is not shown here, only in History (#22).
+3. One row of buttons at the bottom, in the same place as the puzzle screen's game row: Home (left), "Next puzzle"
+   (exactly centred), "History" (right). The photo area is the same as the board's, so the photo does not move. The
+   solve time is not shown here, only in History (#22, #27).
 - Solve time counts only while the puzzle is on screen (it pauses when the app is in the background). It is not
   shown during play.
 - The photo is added to History.
@@ -138,8 +139,8 @@ puzzle instant. Until this exists, choosing the Surprise folders carefully is th
 A list of the app's screens and how to get from one to another.
 
 - **Main:** "Continue" (if a puzzle is unfinished), "Surprise", "Own pick", and entries to History and Settings.
-- **Puzzle:** the board, Skip, the reference-image button (if enabled), a back button that returns to Main (progress
-  is kept).
+- **Puzzle:** the board, and below it one row (#27): a back button that returns to Main (progress is kept), the grid
+  size, the reference-image button (if enabled) and Skip.
 - **New puzzle options:** grid size (presets + custom) and the reference-image setting; shown before a puzzle starts,
   with "remember and don't ask" to start right away next time.
 - **Completion:** the full photo, solve time, "Next puzzle", "History".
