@@ -35,6 +35,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -72,14 +74,28 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
                 .padding(horizontal = 24.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Spacer(Modifier.height(24.dp))
-            Text(stringResource(R.string.app_name), style = MaterialTheme.typography.displayMedium)
-            Text(
-                stringResource(R.string.home_tagline),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            Spacer(Modifier.height(8.dp))
+            // The picture title, centred in the upper third of the screen (#32).
+            val thirdHeight = (LocalConfiguration.current.screenHeightDp / 3).dp
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .height(thirdHeight - padding.calculateTopPadding()),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Image(
+                    painterResource(R.drawable.title_logo),
+                    contentDescription = stringResource(R.string.app_name),
+                    modifier = Modifier.fillMaxWidth(),
+                    contentScale = ContentScale.FillWidth,
+                )
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    stringResource(R.string.home_tagline),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
             UpdateRow(vm.update)
 
             if (current != null) {

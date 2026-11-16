@@ -138,7 +138,8 @@ puzzle instant. Until this exists, choosing the Surprise folders carefully is th
 ## 11. Screens and navigation
 A list of the app's screens and how to get from one to another.
 
-- **Main:** "Continue" (if a puzzle is unfinished), "Surprise", "Own pick", and entries to History and Settings.
+- **Main:** the picture title "Tilory" (letters filled with the icon landscape) centred in the upper third (#32),
+  then "Continue" (if a puzzle is unfinished), "Surprise", "Own pick", and entries to History and Settings.
 - **Puzzle:** the board, and below it one row (#27): a back button that returns to Main (progress is kept), the grid
   size, the reference-image button (if enabled) and Skip.
 - **New puzzle options:** grid size (presets + custom) and the reference-image setting; shown before a puzzle starts,
