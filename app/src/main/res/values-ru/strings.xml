@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="home_tagline">Пазлы из ваших фото</string>
     <string name="continue_title">Продолжить</string>
     <string name="continue_detail">%1$d × %2$d · собрано %3$d%%</string>
     <string name="pick_gallery">Выбрать фото</string>

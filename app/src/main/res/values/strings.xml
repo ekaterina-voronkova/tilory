@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Tilory</string>
-    <string name="home_tagline">Puzzles from your own photos</string>
+    <string name="home_tagline" translatable="false">Every picture tells a story, tile by tile</string>
     <string name="continue_title">Continue</string>
     <string name="continue_detail">%1$d × %2$d · %3$d%% assembled</string>
     <string name="pick_gallery">Pick a photo</string>

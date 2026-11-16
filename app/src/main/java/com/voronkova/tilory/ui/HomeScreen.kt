@@ -41,6 +41,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.voronkova.tilory.R
@@ -102,9 +104,12 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
                     contentScale = ContentScale.FillWidth,
                 )
                 Spacer(Modifier.height(8.dp))
+                // Part of the logo: English in every language, explains the name (tile + story) (#36).
                 Text(
                     stringResource(R.string.home_tagline),
                     style = MaterialTheme.typography.titleMedium,
+                    fontStyle = FontStyle.Italic,
+                    textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
