@@ -1,6 +1,8 @@
 package com.voronkova.tilory.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -66,7 +69,16 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
     // Starting a new puzzle replaces the unfinished one, so ask first (design §8).
     val guarded: (() -> Unit) -> () -> Unit = { pick -> { if (current != null) pendingPick = pick else pick() } }
 
-    Scaffold(snackbarHost = { SnackbarHost(snackbar) }) { padding ->
+    // Background: the owner's watercolour, cropped at the sides, never stretched; dimmed in dark mode (#34).
+    Box(Modifier.fillMaxSize()) {
+    Image(
+        painterResource(R.drawable.home_background),
+        contentDescription = null,
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.Crop,
+    )
+    if (isSystemInDarkTheme()) Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.55f)))
+    Scaffold(snackbarHost = { SnackbarHost(snackbar) }, containerColor = Color.Transparent) { padding ->
         Column(
             Modifier
                 .fillMaxSize()
@@ -150,11 +162,20 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
             }
 
             Spacer(Modifier.weight(1f))
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .background(
+                        MaterialTheme.colorScheme.surface.copy(alpha = 0.85f),
+                        RoundedCornerShape(12.dp),
+                    ),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
                 TextButton(onClick = { vm.show(Screen.History) }) { Text(stringResource(R.string.history)) }
                 TextButton(onClick = { vm.show(Screen.Settings) }) { Text(stringResource(R.string.settings)) }
             }
         }
+    }
     }
 
     pendingPick?.let { pick ->
