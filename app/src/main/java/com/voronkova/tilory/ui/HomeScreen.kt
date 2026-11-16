@@ -108,6 +108,8 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
+            // Everything below the title sits at the bottom of the screen (#35).
+            Spacer(Modifier.weight(1f))
             UpdateRow(vm.update)
 
             if (current != null) {
@@ -161,7 +163,6 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
                 }
             }
 
-            Spacer(Modifier.weight(1f))
             Row(
                 Modifier
                     .fillMaxWidth()
