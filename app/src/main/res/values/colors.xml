@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="launcher_background">#FFF4EDE4</color>
     <color name="icon_background">#FFF3F4F5</color>
+    <!-- Window and splash background (#33): the icon background, dark in dark mode (values-night). -->
+    <color name="window_background">#FFF3F4F5</color>
 </resources>

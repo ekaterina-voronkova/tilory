@@ -138,6 +138,8 @@ puzzle instant. Until this exists, choosing the Surprise folders carefully is th
 ## 11. Screens and navigation
 A list of the app's screens and how to get from one to another.
 
+- **Launch:** the Android 12+ splash — the app icon in the centre on the icon background (dark in dark mode), the
+  picture title small at the bottom; it lasts only as long as the start (#33).
 - **Main:** the picture title "Tilory" (letters filled with the icon landscape) centred in the upper third (#32),
   then "Continue" (if a puzzle is unfinished), "Surprise", "Own pick", and entries to History and Settings.
 - **Puzzle:** the board, and below it one row (#27): a back button that returns to Main (progress is kept), the grid
