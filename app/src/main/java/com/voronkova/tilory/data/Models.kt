@@ -43,6 +43,8 @@ data class Settings(
     val ownTiles: Int = Preset.MEDIUM.tiles,
     val ownReference: ReferenceMode = ReferenceMode.PEEK,
     val vibration: Boolean = true,
+    /** When off, solved puzzles are not added to History (#38). */
+    val keepHistory: Boolean = true,
 )
 
 /** The smallest tile allowed, in dp; limits the largest grid (design §4, #17). */

@@ -55,4 +55,16 @@
     <string name="update_channel">Обновления</string>
     <string name="update_notif_title">Tilory %s скачана</string>
     <string name="update_notif_text">Нажмите, чтобы установить</string>
+    <string name="keep_history">Вести историю</string>
+    <string name="keep_history_hint">Собранные фото хранятся копиями внутри приложения.</string>
+    <string name="clear_history">Очистить историю</string>
+    <string name="clear_history_title">Очистить историю?</string>
+    <string name="clear_history_text">Из приложения удалятся %1$s (%2$s). Это нельзя отменить. Оригиналы в галерее не пострадают.</string>
+    <string name="delete">Удалить</string>
+    <plurals name="history_photos">
+        <item quantity="one">%d фото</item>
+        <item quantity="few">%d фото</item>
+        <item quantity="many">%d фото</item>
+        <item quantity="other">%d фото</item>
+    </plurals>
 </resources>

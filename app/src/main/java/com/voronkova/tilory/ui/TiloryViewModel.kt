@@ -75,10 +75,28 @@ class TiloryViewModel(app: Application) : AndroidViewModel(app) {
     private var resumedAt: Long? = null
 
     init {
+        cleanUpPhotos()
+    }
+
+    /** Deletes stored photo copies that neither History, the current puzzle nor a skipped one refers to. */
+    private fun cleanUpPhotos() {
         val d = _data.value
-        val keep = (d.history.map { it.photo.file } + listOfNotNull(d.current?.photo?.file)).toSet()
+        val keep = (
+            d.history.map { it.photo.file } +
+                listOfNotNull(d.current?.photo?.file, _skipped.value?.photo?.file)
+            ).toSet()
         viewModelScope.launch(io) { photos.cleanUp(keep) }
     }
+
+    /** Empties History and deletes the app's copies of those photos; gallery originals are untouched (#38). */
+    fun clearHistory() {
+        update { it.copy(history = emptyList()) }
+        cleanUpPhotos()
+    }
+
+    /** Disk space taken by the History photos, in bytes. Blocking: call off the main thread. */
+    fun historyBytes(): Long =
+        _data.value.history.map { it.photo.file }.distinct().sumOf { photos.file(Photo(it, 0, 0)).length() }
 
     // --- Starting a puzzle ---
 
@@ -164,7 +182,10 @@ class TiloryViewModel(app: Application) : AndroidViewModel(app) {
         resumedAt = null
         val entry = HistoryEntry(current.photo, System.currentTimeMillis(), elapsed, current.rows, current.cols)
         _solved.value = true
-        update { it.copy(current = null, history = listOf(entry) + it.history) }
+        update {
+            val history = if (it.settings.keepHistory) listOf(entry) + it.history else it.history
+            it.copy(current = null, history = history)
+        }
         viewModelScope.launch {
             delay(1200)
             _screen.value = Screen.Completion(entry)

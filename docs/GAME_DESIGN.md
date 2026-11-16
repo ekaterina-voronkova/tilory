@@ -92,7 +92,11 @@ difficulty.
 ## 7. History
 - A gallery of solved photos, newest first, with the date and the solve time.
 - Tap opens the photo full screen.
-- **Proposal:** "Play again" from History (any grid size) and "Remove from history".
+- "Play again" from the full-screen photo (any grid size).
+- **Clear history** (#38): in Settings and from the History top bar; a confirmation shows how many photos and how much
+  space. It deletes the History entries and the app's own copies of the photos; gallery originals are untouched.
+- **Keep history** setting (#38, default on): when off, solved puzzles are not added and their copies are deleted at
+  the next clean-up. Turning it off does not clear existing History by itself.
 
 ## 8. Saving progress
 - There is one unfinished puzzle at a time.

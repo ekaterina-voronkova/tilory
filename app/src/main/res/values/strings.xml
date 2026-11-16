@@ -57,4 +57,14 @@
     <string name="update_channel">Updates</string>
     <string name="update_notif_title">Tilory %s is downloaded</string>
     <string name="update_notif_text">Tap to install</string>
+    <string name="keep_history">Keep history</string>
+    <string name="keep_history_hint">Solved photos are kept as copies inside the app.</string>
+    <string name="clear_history">Clear history</string>
+    <string name="clear_history_title">Clear history?</string>
+    <string name="clear_history_text">%1$s (%2$s) will be deleted from the app. This cannot be undone. The originals in your gallery are not affected.</string>
+    <string name="delete">Delete</string>
+    <plurals name="history_photos">
+        <item quantity="one">%d photo</item>
+        <item quantity="other">%d photos</item>
+    </plurals>
 </resources>

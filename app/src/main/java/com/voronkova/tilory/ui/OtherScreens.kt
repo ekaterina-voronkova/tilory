@@ -25,6 +25,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -145,19 +146,36 @@ fun ZoomableImage(image: ImageBitmap, background: Boolean = true) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun BackTopBar(title: String, onBack: () -> Unit) {
+private fun BackTopBar(
+    title: String,
+    onBack: () -> Unit,
+    actions: @Composable androidx.compose.foundation.layout.RowScope.() -> Unit = {},
+) {
     TopAppBar(
         title = { Text(title) },
         navigationIcon = {
             IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back)) }
         },
+        actions = actions,
     )
 }
 
 @Composable
 fun HistoryScreen(vm: TiloryViewModel) {
     val data by vm.data.collectAsStateWithLifecycle()
-    Scaffold(topBar = { BackTopBar(stringResource(R.string.history), vm::back) }) { padding ->
+    var askClear by remember { mutableStateOf(false) }
+    if (askClear) ClearHistoryDialog(vm) { askClear = false }
+    Scaffold(
+        topBar = {
+            BackTopBar(stringResource(R.string.history), vm::back) {
+                if (data.history.isNotEmpty()) {
+                    IconButton(onClick = { askClear = true }) {
+                        Icon(Icons.Filled.Delete, stringResource(R.string.clear_history))
+                    }
+                }
+            }
+        },
+    ) { padding ->
         if (data.history.isEmpty()) {
             Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.Center) {
                 Text(stringResource(R.string.history_empty), color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -252,6 +270,40 @@ fun SettingsScreen(vm: TiloryViewModel) {
             }
             Text(stringResource(R.string.reference), style = MaterialTheme.typography.bodyMedium)
             ReferenceChips(settings.ownReference) { mode -> vm.updateSettings { it.copy(ownReference = mode) } }
+
+            HorizontalDivider()
+            Text(stringResource(R.string.history), style = MaterialTheme.typography.titleMedium)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text(stringResource(R.string.keep_history))
+                    Text(
+                        stringResource(R.string.keep_history_hint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                Switch(
+                    checked = settings.keepHistory,
+                    onCheckedChange = { on -> vm.updateSettings { it.copy(keepHistory = on) } },
+                )
+            }
+            var askClear by remember { mutableStateOf(false) }
+            if (askClear) ClearHistoryDialog(vm) { askClear = false }
+            OutlinedButton(
+                onClick = { askClear = true },
+                enabled = data.history.isNotEmpty(),
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                val count = data.history.size
+                Text(
+                    if (count > 0) {
+                        stringResource(R.string.clear_history) + " · " +
+                            androidx.compose.ui.res.pluralStringResource(R.plurals.history_photos, count, count)
+                    } else {
+                        stringResource(R.string.clear_history)
+                    },
+                )
+            }
 
             HorizontalDivider()
             Row(verticalAlignment = Alignment.CenterVertically) {
