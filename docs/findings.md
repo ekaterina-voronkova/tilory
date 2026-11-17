@@ -134,3 +134,14 @@ Detailed release history. Issues are the index; this file is the detail.
 - Build: local, same toolchain and debug key.
 - Checked: 23 unit tests, lint clean, APK badging 0.7.1. Not checked: on the phone.
 - Retention: v0.5.0 release deleted (tag kept); on GitHub now v0.7.1, v0.7.0, v0.6.0.
+
+## v0.7.2 — swapped button colours, lighter dark-mode dim (#51)
+- Commit: 2c90ecc. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.7.2
+- Changes:
+  - "Pick a photo" is now river blue and "From folders and cloud" light-mountain blue (#49). The owner chose this
+    from a mockup drawn with System.Drawing over the real background and logo.
+  - The dark-mode scrim on the main screen painting went from 55% to 40% (#50).
+  - versionCode 13.
+- Build: local, same toolchain and debug key.
+- Checked: 23 unit tests, lint clean, APK badging 0.7.2. Not checked: on the phone.
+- Retention: v0.6.0 release deleted (tag kept); on GitHub now v0.7.2, v0.7.1, v0.7.0.
