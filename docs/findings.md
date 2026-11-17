@@ -104,3 +104,18 @@ Detailed release history. Issues are the index; this file is the detail.
   worked.
 - Checked: 19 unit tests (4 new for the Surprise pick), lint clean, APK badging 0.6.0. Not checked: on the phone.
 - Retention: v0.4.1 release deleted (tag kept); on GitHub now v0.6.0, v0.5.0, v0.4.2.
+
+## v0.7.0 — random folder first, shooting date, river-blue main buttons (#45)
+- Commit: 4848fde. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.7.0
+- Changes:
+  - Random photo (Surprise) picks a random folder first, then a random photo in it, so every folder is equally
+    likely (#42).
+  - The EXIF shooting date (`DateTimeOriginal`, falling back to `DateTimeDigitized`) is read from the original at
+    import with androidx.exifinterface 1.3.7. It is shown on the completion screen and in the History viewer; there
+    is no file-date fallback (#43).
+  - Main screen buttons in the logo's river blue (#3FBEEC, dark text #0B2F45), ordered Random photo, Pick a photo,
+    From folders and cloud. "Surprise" is renamed to "Random photo" in all visible text (#44).
+  - versionCode 11.
+- Build: local, same toolchain and debug key.
+- Checked: 23 unit tests, lint clean, APK badging 0.7.0. Not checked: on the phone.
+- Retention: v0.4.2 release deleted (tag kept); on GitHub now v0.7.0, v0.6.0, v0.5.0.
