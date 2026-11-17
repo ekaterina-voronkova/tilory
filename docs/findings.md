@@ -87,3 +87,20 @@ Detailed release history. Issues are the index; this file is the detail.
 - Build: local, same toolchain and debug key.
 - Checked: 15 unit tests, lint clean, APK badging 0.5.0. Not checked: on the phone.
 - Retention: v0.4.0 release deleted (tag kept); on GitHub now v0.5.0, v0.4.2, v0.4.1.
+
+## v0.6.0 — Surprise from phone folders (#40)
+- Commit: e507047. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.6.0
+- Changes:
+  - Surprise from folders picked with ACTION_OPEN_DOCUMENT_TREE (#4): random pick without repeats, with solved
+    documents and photo hashes kept in `AppData.surprise`. No photo catalogue: the folders are listed on each pick.
+  - After a skip, a dialog asks why, with Undo; hidden photos can be restored.
+  - Surprise has its own difficulty and reference image in Settings.
+  - The recent-apps thumbnail is hidden on Android 13+ (`setRecentsScreenshotEnabled`, not FLAG_SECURE, so
+    screenshots still work).
+  - Clear History and a "Keep history" setting (#38).
+  - Landscape photos turn the screen, with the game bar at the side (#39).
+  - versionCode 10.
+- Build: local, same toolchain and debug key. `gh release create --target` refused the short hash; the full hash
+  worked.
+- Checked: 19 unit tests (4 new for the Surprise pick), lint clean, APK badging 0.6.0. Not checked: on the phone.
+- Retention: v0.4.1 release deleted (tag kept); on GitHub now v0.6.0, v0.5.0, v0.4.2.
