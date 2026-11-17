@@ -13,8 +13,8 @@ android {
         applicationId = "com.voronkova.tilory"
         minSdk = 28
         targetSdk = 35
-        versionCode = 10
-        versionName = "0.6.0"
+        versionCode = 11
+        versionName = "0.7.0"
     }
 
     buildTypes {
