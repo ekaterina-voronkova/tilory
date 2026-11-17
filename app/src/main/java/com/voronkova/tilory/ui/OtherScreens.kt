@@ -104,10 +104,10 @@ fun CompletionScreen(vm: TiloryViewModel, entry: HistoryEntry, onNext: () -> Uni
         },
     ) {
         image?.let { ZoomableImage(it, background = false) }
-        // When the photo was taken, if the photo says so (#43); over the top of the photo area, so nothing moves.
+        // When the photo was taken, if the photo says so (#43); at the bottom of the photo area, above the buttons (#47).
         formatTaken(entry.photo.taken)?.let { taken ->
             Surface(
-                modifier = Modifier.align(Alignment.TopCenter).padding(top = 8.dp),
+                modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp),
                 shape = MaterialTheme.shapes.small,
                 color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
             ) {

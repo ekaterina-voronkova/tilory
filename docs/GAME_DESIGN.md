@@ -94,7 +94,7 @@ difficulty.
 - Solve time counts only while the puzzle is on screen (it pauses when the app is in the background). It is not
   shown during play.
 - The photo is added to History.
-- When the photo was taken (EXIF shooting date and time) is shown as a small caption over the top of the photo area,
+- When the photo was taken (EXIF shooting date and time) is shown as a small caption at the bottom of the photo area, just above the buttons (#47),
   and in the History viewer, only if the photo has it; the file date is not used (#43). Place and map: not wanted
   for now.
 
