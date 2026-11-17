@@ -81,7 +81,8 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
         modifier = Modifier.fillMaxSize(),
         contentScale = ContentScale.Crop,
     )
-    if (isSystemInDarkTheme()) Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.55f)))
+    // Dimmed by 40% in dark mode so the painting does not glare (#34, #50).
+    if (isSystemInDarkTheme()) Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.4f)))
     Scaffold(snackbarHost = { SnackbarHost(snackbar) }, containerColor = Color.Transparent) { padding ->
         Column(
             Modifier
