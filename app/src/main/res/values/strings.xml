@@ -7,12 +7,11 @@
     <string name="pick_gallery">Pick a photo</string>
     <string name="pick_files">From files</string>
     <string name="surprise_title">Surprise</string>
-    <string name="surprise_soon">Coming in the next version</string>
     <string name="history">History</string>
     <string name="settings">Settings</string>
     <string name="replace_title">Start a new puzzle?</string>
     <string name="replace_text">The unfinished puzzle will be replaced.</string>
-    <string name="replace_confirm">Pick a photo</string>
+    <string name="replace_confirm">Start a new one</string>
     <string name="cancel">Cancel</string>
     <string name="skipped">Puzzle skipped</string>
     <string name="undo">Undo</string>
@@ -41,7 +40,7 @@
     <string name="home">Home</string>
     <string name="history_empty">No solved puzzles yet.</string>
     <string name="play_again">Play again</string>
-    <string name="defaults_title">New puzzles</string>
+    <string name="defaults_title">Own photos</string>
     <string name="vibration">Vibration when tiles glue</string>
     <string name="version">Version %s</string>
     <string name="update_available">Version %1$s is available · %2$s</string>
@@ -68,4 +67,22 @@
         <item quantity="other">%d photos</item>
     </plurals>
     <string name="rotate_landscape">Turn the screen for landscape photos</string>
+    <string name="sources_title">Surprise folders</string>
+    <string name="sources_hint">Surprise takes random photos from these folders and its subfolders. Pick folders with photos you like to play: screenshots and documents stay out if their folders are not picked.</string>
+    <string name="sources_add">Add a folder</string>
+    <string name="sources_count">Photos: %1$d · not yet played: %2$d</string>
+    <string name="sources_counting">Counting photos…</string>
+    <string name="sources_remove">Remove</string>
+    <string name="sources_remove_title">Remove “%s”?</string>
+    <string name="sources_remove_text">Surprise will stop taking photos from this folder. The photos themselves are not touched.</string>
+    <string name="hidden_title">Hidden photos</string>
+    <string name="hidden_empty">No hidden photos.</string>
+    <string name="hidden_restore">Show again</string>
+    <string name="hidden_restore_text">Let Surprise show this photo again?</string>
+    <string name="skip_another">Just want another one</string>
+    <string name="skip_never">Never show this photo</string>
+    <string name="skip_folder">Don’t take photos from this folder</string>
+    <string name="surprise_no_sources">Pick one or more folders with photos first: Surprise will take random photos from them.</string>
+    <string name="surprise_all_used">Every photo in the Surprise folders has been played. Add another folder.</string>
+    <string name="surprise_unreadable">Could not open the photos in the Surprise folders. Check the folders.</string>
 </resources>

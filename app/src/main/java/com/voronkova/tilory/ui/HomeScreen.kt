@@ -17,7 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -147,25 +147,15 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
                 }
             }
 
-            Button(onClick = guarded(onPickGallery), modifier = Modifier.fillMaxWidth()) {
+            // Surprise is the main mode (design §2); with no folders yet it explains and offers to add them.
+            Button(onClick = guarded(vm::startSurprise), modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.surprise_title))
+            }
+            FilledTonalButton(onClick = guarded(onPickGallery), modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(R.string.pick_gallery))
             }
             OutlinedButton(onClick = guarded(onPickFiles), modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(R.string.pick_files))
-            }
-
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-            ) {
-                Column(Modifier.padding(16.dp)) {
-                    Text(stringResource(R.string.surprise_title), style = MaterialTheme.typography.titleMedium)
-                    Text(
-                        stringResource(R.string.surprise_soon),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
             }
 
             Row(

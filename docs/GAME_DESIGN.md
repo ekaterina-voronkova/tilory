@@ -21,6 +21,8 @@ difficulty.
 - The photo stays unknown until the puzzle is solved: a "closed box". No thumbnail anywhere: not on the main screen,
   not in lists, not in notifications, not in the recent-apps screen (see §12).
 - The reference image is off by default (see §4).
+- Surprise starts at once from the main screen, with no options screen (it would show the photo): its difficulty
+  and reference image are set in Settings (#4).
 - Solved photos are remembered and never come again in Surprise.
 - Photos skipped with "just want another" may come again later; photos hidden with "never show" do not.
 
@@ -69,15 +71,16 @@ difficulty.
 - A Skip button is always visible during a puzzle. No confirmation, no penalty. The tiles disappear at once.
 - **Undo** for about 5 seconds after skipping (a snackbar), in case it was pressed by accident; it brings the puzzle back
   exactly as it was.
-- After skipping in Surprise, an optional question (can be ignored or closed):
-  - "Just want another one": the photo may come again later.
+- After skipping in Surprise (#4), a dialog asks why, with **Undo** in it instead of the snackbar; closing it counts
+  as "Just want another one". The next photo is picked after the answer, so "this folder" can take effect at once:
+  - "Just want another one": the photo may come again later, but not as the very next one.
   - "Never show this photo": the photo is hidden.
   - "Don't take photos from this folder": the folder is removed from the Surprise sources.
   - (Later, with the content filter, §10: "It's a screenshot / document / private", which also makes the filter
     stricter.)
 - Hidden photos are listed in Settings and can be restored there. The list shows thumbnails, because the owner opens it
   on purpose.
-- After skipping, the next puzzle starts right away.
+- After skipping, the next puzzle starts right away (Surprise), or the main screen comes back (Own pick).
 
 ## 6. Completion
 1. The seams between tiles fade out and the whole photo is shown.
@@ -116,7 +119,7 @@ difficulty.
 - "Share → Tilory" from any app.
 
 ### Surprise, in stages
-1. **A folder on the phone.** The owner picks one or more folders once (`ACTION_OPEN_DOCUMENT_TREE`), for example the
+1. **A folder on the phone** (built in #4). The owner picks one or more folders once (`ACTION_OPEN_DOCUMENT_TREE`), for example the
    camera folder or a drawings folder. No special permission; screenshots and receipts are excluded simply by not
    picking their folders. (Alternative: `READ_MEDIA_IMAGES` for the whole library; it needs a Play Store declaration
    with no guaranteed approval. Not planned.)
@@ -157,10 +160,12 @@ A list of the app's screens and how to get from one to another.
   with "remember and don't ask" to start right away next time.
 - **Completion:** the full photo, solve time, "Next puzzle", "History".
 - **History:** the gallery; tap → full-screen photo.
-- **Settings:** default difficulty per mode, reference image defaults, vibration, Surprise sources, hidden photos.
+- **Settings:** difficulty and reference image for Own photos and for Surprise, Surprise folders, hidden photos,
+  History, screen turning, vibration.
 - **Colours:** the phone's theme colours (wallpaper colours on Android 12+). A fixed palette from the icon painting
   with a switch was tried in 0.4.0 (#25) and removed (#30).
-- **Surprise sources:** the folders (later: albums) in use; add or remove; how many photos each has left.
+- **Surprise folders:** the folders (later: albums) in use; add or remove; how many photos each has and how many
+  have not come yet. Subfolders are included; hidden folders (starting with ".") are not.
 - **Hidden photos:** the list, with restore.
 
 ```
@@ -190,14 +195,16 @@ Main ──► New puzzle options ──► Puzzle ──► Completion ──�
   may not come; the installer then opens when the app is opened again.
 - Google Play forbids self-update, so a Play build must leave it out.
 - No analytics, no ads, no account.
-- In Surprise the screen is excluded from the recent-apps thumbnail (`FLAG_SECURE` during a Surprise puzzle) so the
-  picture does not leak there. **Proposal** (it also blocks screenshots during that puzzle).
+- In Surprise the picture is kept out of the recent-apps thumbnail during the puzzle (#4): on Android 13+ with
+  `setRecentsScreenshotEnabled(false)`, which leaves screenshots working; on Android 9–12 it is not hidden
+  (`FLAG_SECURE` would block screenshots too).
 - Before Play Store publishing: a privacy policy on a website. To check: whether tilory.app or tilory.com is free.
 
 ## 13. Technical foundation
 - Kotlin, Jetpack Compose, Navigation Compose, a single activity.
-- Storage: in 0.1.0 one JSON file (puzzle state, history, settings) written atomically after every change. Room
-  comes with Surprise, when there is a photo catalogue to query.
+- Storage: one JSON file (puzzle state, history, settings, Surprise folders and memory) written atomically after
+  every change. Surprise keeps no photo catalogue: it lists the folders each time it picks (#4); Room only if that
+  gets slow.
 - The board is drawn from one bitmap: each tile is a region of it, so no tiles are saved as separate images.
 - `androidx.exifinterface` for orientation; `ImageDecoder` for decoding, including HEIC.
 - The owner's phone: Xiaomi Redmi 13, Android 16. It is the main test device.
@@ -218,7 +225,7 @@ Main ──► New puzzle options ──► Puzzle ──► Completion ──�
 
 ## 15. Open questions
 1. The remaining proposals: displacing order for groups (§3), timer hidden during play (§6), "Play again" in History
-   (§7), longest side 2048 px (§9), `FLAG_SECURE` in Surprise (§12), minSdk 28 (§13).
+   (§7), longest side 2048 px (§9), minSdk 28 (§13).
 2. Checked on the owner's phone (0.5.0): the system file picker shows Recent, Images, Downloads, the phone storage and
    Google Drive, but not OneDrive. Open: whether the OneDrive app is installed there (it adds itself when installed
    and signed in); otherwise OneDrive needs stage 3 (§9, #7).

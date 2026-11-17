@@ -57,8 +57,13 @@ private const val SYSTEM_BARS_DP = 80f
 @Composable
 fun maxGridFor(photo: Photo, landscape: Boolean, minTileDp: Int = MIN_TILE_DP): Grid {
     val config = LocalConfiguration.current
-    val long = maxOf(config.screenWidthDp, config.screenHeightDp).toFloat()
-    val short = minOf(config.screenWidthDp, config.screenHeightDp).toFloat()
+    return maxGridFor(photo, landscape, config.screenWidthDp, config.screenHeightDp, minTileDp)
+}
+
+/** [maxGridFor] for a screen of [widthDp] × [heightDp]; also used when Surprise starts without the options screen. */
+fun maxGridFor(photo: Photo, landscape: Boolean, widthDp: Int, heightDp: Int, minTileDp: Int = MIN_TILE_DP): Grid {
+    val long = maxOf(widthDp, heightDp).toFloat()
+    val short = minOf(widthDp, heightDp).toFloat()
     val margins = 2f * BOARD_MARGIN_DP
     val availW: Float
     val availH: Float

@@ -24,6 +24,27 @@ data class PuzzleState(
     val tiles: List<Int>,
     val elapsedMs: Long,
     val reference: ReferenceMode,
+    /** Surprise only: the document the photo came from, and the source folder it was found in (#4). */
+    val document: String? = null,
+    val tree: String? = null,
+)
+
+/** A folder picked once for Surprise (design §9 stage 1, #4): a persisted tree URI and its name. */
+@Serializable
+data class SurpriseSource(val tree: String, val name: String)
+
+/** A photo hidden with "Never show this photo" (design §5); [photo] keeps a copy for the restore list. */
+@Serializable
+data class HiddenPhoto(val photo: Photo, val document: String)
+
+/** What Surprise remembers so photos do not come again (design §2). */
+@Serializable
+data class SurpriseMemory(
+    val sources: List<SurpriseSource> = emptyList(),
+    /** Documents and photo hashes (stored file names) already solved in Surprise. */
+    val solvedDocuments: Set<String> = emptySet(),
+    val solvedPhotos: Set<String> = emptySet(),
+    val hidden: List<HiddenPhoto> = emptyList(),
 )
 
 @Serializable
@@ -47,6 +68,9 @@ data class Settings(
     val keepHistory: Boolean = true,
     /** Turn the screen to landscape for landscape photos (#39). */
     val rotateLandscape: Boolean = true,
+    /** Surprise has its own difficulty and reference image; reference is off by default (design §4). */
+    val surpriseTiles: Int = Preset.MEDIUM.tiles,
+    val surpriseReference: ReferenceMode = ReferenceMode.OFF,
 )
 
 /** The smallest tile allowed, in dp; limits the largest grid (design §4, #17). */
@@ -57,4 +81,5 @@ data class AppData(
     val current: PuzzleState? = null,
     val history: List<HistoryEntry> = emptyList(),
     val settings: Settings = Settings(),
+    val surprise: SurpriseMemory = SurpriseMemory(),
 )

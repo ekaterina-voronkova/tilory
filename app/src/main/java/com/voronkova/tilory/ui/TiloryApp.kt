@@ -39,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.voronkova.tilory.R
+import com.voronkova.tilory.data.Mode
 import com.voronkova.tilory.data.Photo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -75,6 +76,9 @@ fun TiloryApp(vm: TiloryViewModel) {
         gallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
     val pickFiles = { files.launch(arrayOf("image/*")) }
+    val folder = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+        uri?.let(vm::addSource)
+    }
 
     BackHandler(enabled = screen != Screen.Home) { vm.back() }
 
@@ -96,15 +100,28 @@ fun TiloryApp(vm: TiloryViewModel) {
         }
     }
 
+    // A Surprise puzzle stays a closed box: no picture in the recent-apps thumbnail (design §12, #4). Android 13+
+    // can hide just the thumbnail, so screenshots still work.
+    val secret = screen == Screen.Puzzle && data.current?.mode == Mode.SURPRISE
+    LaunchedEffect(secret) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) activity?.setRecentsScreenshotEnabled(!secret)
+    }
+
     Box(Modifier.fillMaxSize()) {
         when (val s = screen) {
             Screen.Home -> HomeScreen(vm, onPickGallery = pickGallery, onPickFiles = pickFiles)
             is Screen.Options -> OptionsScreen(vm, s.photo)
             Screen.Puzzle -> PuzzleScreen(vm)
-            is Screen.Completion -> CompletionScreen(vm, s.entry, onNext = pickGallery)
+            is Screen.Completion -> CompletionScreen(
+                vm,
+                s.entry,
+                onNext = if (s.mode == Mode.SURPRISE) vm::startSurprise else pickGallery,
+            )
             Screen.History -> HistoryScreen(vm)
             is Screen.Viewer -> ViewerScreen(vm, s.entry)
             Screen.Settings -> SettingsScreen(vm)
+            Screen.Sources -> SourcesScreen(vm, onAddFolder = { folder.launch(null) })
+            Screen.Hidden -> HiddenScreen(vm)
         }
 
         if (busy) {
@@ -127,6 +144,9 @@ fun TiloryApp(vm: TiloryViewModel) {
             }
         }
     }
+
+    SkipQuestionDialog(vm)
+    SurpriseProblemDialog(vm)
 
     if (error) {
         AlertDialog(

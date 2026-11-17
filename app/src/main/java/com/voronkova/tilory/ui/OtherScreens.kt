@@ -143,7 +143,7 @@ fun ZoomableImage(image: ImageBitmap, background: Boolean = true) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun BackTopBar(
+internal fun BackTopBar(
     title: String,
     onBack: () -> Unit,
     actions: @Composable androidx.compose.foundation.layout.RowScope.() -> Unit = {},
@@ -267,6 +267,30 @@ fun SettingsScreen(vm: TiloryViewModel) {
             }
             Text(stringResource(R.string.reference), style = MaterialTheme.typography.bodyMedium)
             ReferenceChips(settings.ownReference) { mode -> vm.updateSettings { it.copy(ownReference = mode) } }
+
+            // Surprise starts without an options screen (it would show the photo), so its choices live here (#4).
+            HorizontalDivider()
+            Text(stringResource(R.string.surprise_title), style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.difficulty), style = MaterialTheme.typography.bodyMedium)
+            androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Preset.entries.filter { it != Preset.CUSTOM }.forEach { p ->
+                    androidx.compose.material3.FilterChip(
+                        selected = settings.surpriseTiles == p.tiles,
+                        onClick = { vm.updateSettings { it.copy(surpriseTiles = p.tiles) } },
+                        label = { Text(presetLabel(p)) },
+                    )
+                }
+            }
+            Text(stringResource(R.string.reference), style = MaterialTheme.typography.bodyMedium)
+            ReferenceChips(settings.surpriseReference) { mode ->
+                vm.updateSettings { it.copy(surpriseReference = mode) }
+            }
+            OutlinedButton(onClick = { vm.show(Screen.Sources) }, modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.sources_title) + " · " + data.surprise.sources.size)
+            }
+            OutlinedButton(onClick = { vm.show(Screen.Hidden) }, modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.hidden_title) + " · " + data.surprise.hidden.size)
+            }
 
             HorizontalDivider()
             Text(stringResource(R.string.history), style = MaterialTheme.typography.titleMedium)
