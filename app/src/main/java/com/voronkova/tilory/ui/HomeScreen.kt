@@ -1,5 +1,6 @@
 package com.voronkova.tilory.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -35,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -147,21 +149,11 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
                 }
             }
 
-            // River-blue buttons, the colour of the river in the title logo, with dark text for contrast (#44).
+            // Buttons in the logo's sky, mountain and river colours, with its cream outline and shadow (#44, #46).
             // Random photo (Surprise) is the main mode (design §2); with no folders yet it offers to add them.
-            val river = ButtonDefaults.buttonColors(
-                containerColor = colorResource(R.color.river),
-                contentColor = colorResource(R.color.on_river),
-            )
-            Button(onClick = guarded(vm::startSurprise), modifier = Modifier.fillMaxWidth(), colors = river) {
-                Text(stringResource(R.string.surprise_title))
-            }
-            Button(onClick = guarded(onPickGallery), modifier = Modifier.fillMaxWidth(), colors = river) {
-                Text(stringResource(R.string.pick_gallery))
-            }
-            Button(onClick = guarded(onPickFiles), modifier = Modifier.fillMaxWidth(), colors = river) {
-                Text(stringResource(R.string.pick_files))
-            }
+            LogoButton(stringResource(R.string.surprise_title), colorResource(R.color.sky), guarded(vm::startSurprise))
+            LogoButton(stringResource(R.string.pick_gallery), colorResource(R.color.mountain), guarded(onPickGallery))
+            LogoButton(stringResource(R.string.pick_files), colorResource(R.color.river), guarded(onPickFiles))
 
             Row(
                 Modifier
@@ -194,5 +186,22 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
                 TextButton(onClick = { pendingPick = null }) { Text(stringResource(R.string.cancel)) }
             },
         )
+    }
+}
+
+/** A main screen button drawn like the logo letters: a landscape colour, a cream outline and a soft shadow (#46). */
+@Composable
+private fun LogoButton(text: String, color: Color, onClick: () -> Unit) {
+    val shape = ButtonDefaults.shape
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(6.dp, shape, ambientColor = Color(0xFF3A4030), spotColor = Color(0xFF3A4030)),
+        shape = shape,
+        colors = ButtonDefaults.buttonColors(containerColor = color, contentColor = colorResource(R.color.on_river)),
+        border = BorderStroke(2.dp, colorResource(R.color.logo_outline)),
+    ) {
+        Text(text)
     }
 }
