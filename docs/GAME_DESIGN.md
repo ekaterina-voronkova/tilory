@@ -155,7 +155,7 @@ A list of the app's screens and how to get from one to another.
   picture title small at the bottom; it lasts only as long as the start (#33).
 - **Main:** the picture title "Tilory" (letters filled with the icon landscape) centred in the upper third (#32), with the tagline "Every picture tells a story, tile by tile" under it — italic,
   English in every language, part of the logo (#36),
-  over a full-screen background of the owner's watercolour (cropped at the sides, dimmed in dark mode, #34); at the bottom of the screen (#35) "Continue" (if a puzzle is unfinished), then three buttons drawn like the logo letters (cream outline #FBEEDE, soft shadow, dark text; #44, #46): "Random photo" (Surprise) in the sky blue #7DCFFA, "Pick a photo" in the light mountain blue #7C9EB8, "From folders and cloud" (the system file picker) in the river blue #3FBEEC; then the History / Settings row.
+  over a full-screen background of the owner's watercolour (cropped at the sides, dimmed in dark mode, #34); at the bottom of the screen (#35) "Continue" (if a puzzle is unfinished), then three buttons drawn like the logo letters (cream outline #FBEEDE, soft shadow, dark text; #44, #46): "Random photo" (Surprise) in the sky blue #7DCFFA, "Pick a photo" in the river blue #3FBEEC, "From folders and cloud" (the system file picker) in the light mountain blue #7C9EB8 (#49); then the History / Settings row.
 - **Landscape photos** (#39): with the setting "Turn the screen for landscape photos" on (default), the puzzle and
   completion screens turn to landscape when the photo is wider than tall, even with auto-rotate off; the game bar then
   becomes a narrow column at the side. The grid limit on the options screen is computed for that orientation. Other

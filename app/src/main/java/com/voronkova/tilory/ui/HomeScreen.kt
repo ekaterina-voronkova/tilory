@@ -149,11 +149,11 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
                 }
             }
 
-            // Buttons in the logo's sky, mountain and river colours, with its cream outline and shadow (#44, #46).
+            // Buttons in the logo's sky, river and mountain colours, with its cream outline and shadow (#44, #46, #49).
             // Random photo (Surprise) is the main mode (design §2); with no folders yet it offers to add them.
             LogoButton(stringResource(R.string.surprise_title), colorResource(R.color.sky), guarded(vm::startSurprise))
-            LogoButton(stringResource(R.string.pick_gallery), colorResource(R.color.mountain), guarded(onPickGallery))
-            LogoButton(stringResource(R.string.pick_files), colorResource(R.color.river), guarded(onPickFiles))
+            LogoButton(stringResource(R.string.pick_gallery), colorResource(R.color.river), guarded(onPickGallery))
+            LogoButton(stringResource(R.string.pick_files), colorResource(R.color.mountain), guarded(onPickFiles))
 
             Row(
                 Modifier
