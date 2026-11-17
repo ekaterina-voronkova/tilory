@@ -17,7 +17,8 @@ difficulty.
 
 ## 2. Modes
 ### Surprise (main mode)
-- The game picks a random photo from the sources the owner has set up.
+- The game picks a random photo from the sources the owner has set up: first a random folder (every folder equally
+  likely, whatever its size; subfolders belong to the folder picked), then a random photo in it (#42).
 - The photo stays unknown until the puzzle is solved: a "closed box". No thumbnail anywhere: not on the main screen,
   not in lists, not in notifications, not in the recent-apps screen (see §12).
 - The reference image is off by default (see §4).

@@ -74,7 +74,8 @@ class Folders(private val context: Context) {
 object SurprisePicker {
     /**
      * The images that may come next: not solved, not hidden; the photo just skipped only if nothing else is left.
-     * Returned in random order.
+     * Returned in the order to try them: each step picks a random folder among those with images left, then a random
+     * image in it, so every folder is equally likely whatever its size (#42).
      */
     fun candidates(
         images: List<FolderImage>,
@@ -86,6 +87,17 @@ object SurprisePicker {
         val open = images.distinctBy { it.document }
             .filter { it.document !in memory.solvedDocuments && it.document !in hidden }
         val fresh = open.filter { it.document != justSkipped }
-        return (fresh.ifEmpty { open }).shuffled(random)
+        val folders = fresh.ifEmpty { open }
+            .groupBy { it.tree }
+            .values
+            .map { it.shuffled(random).toMutableList() }
+            .toMutableList()
+        val order = mutableListOf<FolderImage>()
+        while (folders.isNotEmpty()) {
+            val i = random.nextInt(folders.size)
+            order += folders[i].removeAt(folders[i].lastIndex)
+            if (folders[i].isEmpty()) folders.removeAt(i)
+        }
+        return order
     }
 }
