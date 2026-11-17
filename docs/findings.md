@@ -119,3 +119,18 @@ Detailed release history. Issues are the index; this file is the detail.
 - Build: local, same toolchain and debug key.
 - Checked: 23 unit tests, lint clean, APK badging 0.7.0. Not checked: on the phone.
 - Retention: v0.4.2 release deleted (tag kept); on GitHub now v0.7.0, v0.6.0, v0.5.0.
+
+## v0.7.1 — logo-style main buttons, shooting date above the buttons (#48)
+- Commit: 671db4d. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.7.1
+- Changes:
+  - The main screen buttons are drawn like the logo letters (#46):
+    - colours: sky #7DCFFA, light mountains #7C9EB8, river #3FBEEC;
+    - a 2 dp cream outline #FBEEDE;
+    - a soft 6 dp shadow;
+    - dark text.
+  - The completion screen's shooting date moved from the top of the photo area to the bottom, above the buttons
+    (#47).
+  - versionCode 12.
+- Build: local, same toolchain and debug key.
+- Checked: 23 unit tests, lint clean, APK badging 0.7.1. Not checked: on the phone.
+- Retention: v0.5.0 release deleted (tag kept); on GitHub now v0.7.1, v0.7.0, v0.6.0.
