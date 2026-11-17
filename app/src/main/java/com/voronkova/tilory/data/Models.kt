@@ -10,7 +10,13 @@ enum class Mode { OWN, SURPRISE }
 
 /** A photo copied into the app (design §9): a downscaled JPEG in filesDir/photos. */
 @Serializable
-data class Photo(val file: String, val width: Int, val height: Int) {
+data class Photo(
+    val file: String,
+    val width: Int,
+    val height: Int,
+    /** When the photo was taken, as EXIF writes it ("yyyy:MM:dd HH:mm:ss", local time); null if unknown (#43). */
+    val taken: String? = null,
+) {
     val aspect: Float get() = width.toFloat() / height
 }
 

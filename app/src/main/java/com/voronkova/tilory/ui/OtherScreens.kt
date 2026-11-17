@@ -35,6 +35,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -103,6 +104,20 @@ fun CompletionScreen(vm: TiloryViewModel, entry: HistoryEntry, onNext: () -> Uni
         },
     ) {
         image?.let { ZoomableImage(it, background = false) }
+        // When the photo was taken, if the photo says so (#43); over the top of the photo area, so nothing moves.
+        formatTaken(entry.photo.taken)?.let { taken ->
+            Surface(
+                modifier = Modifier.align(Alignment.TopCenter).padding(top = 8.dp),
+                shape = MaterialTheme.shapes.small,
+                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
+            ) {
+                Text(
+                    stringResource(R.string.taken_at, taken),
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+        }
     }
 }
 
@@ -222,6 +237,13 @@ fun ViewerScreen(vm: TiloryViewModel, entry: HistoryEntry) {
                         stringResource(R.string.solved_in, formatDuration(entry.elapsedMs)),
                     style = MaterialTheme.typography.bodyLarge,
                 )
+                formatTaken(entry.photo.taken)?.let { taken ->
+                    Text(
+                        stringResource(R.string.taken_at, taken),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
                 OutlinedButton(onClick = { vm.show(Screen.Options(entry.photo)) }, Modifier.fillMaxWidth()) {
                     Text(stringResource(R.string.play_again))
                 }

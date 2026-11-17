@@ -85,4 +85,5 @@
     <string name="surprise_no_sources">Сначала выберите одну или несколько папок с фото: сюрприз будет брать из них случайные фото.</string>
     <string name="surprise_all_used">Все фото из папок для сюрприза уже собраны. Добавьте ещё папку.</string>
     <string name="surprise_unreadable">Не получилось открыть фото из папок для сюрприза. Проверьте папки.</string>
+    <string name="taken_at">Снято %s</string>
 </resources>

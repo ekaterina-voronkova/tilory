@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
+import androidx.exifinterface.media.ExifInterface
 import java.io.File
 import java.security.MessageDigest
 import kotlin.math.max
@@ -58,8 +59,22 @@ class PhotoImporter(private val context: Context) {
         }
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         BitmapFactory.decodeFile(out.path, bounds)
-        return Photo(name, bounds.outWidth, bounds.outHeight)
+        return Photo(name, bounds.outWidth, bounds.outHeight, taken(uri))
     }
+
+    /**
+     * The shooting date from the original's EXIF; the stored copy has no EXIF (#43). The file date is not used: it is
+     * often the date of a copy or download.
+     */
+    private fun taken(uri: Uri): String? = runCatching {
+        context.contentResolver.openInputStream(uri)?.use { input ->
+            val exif = ExifInterface(input)
+            listOf(ExifInterface.TAG_DATETIME_ORIGINAL, ExifInterface.TAG_DATETIME_DIGITIZED)
+                .firstNotNullOfOrNull { tag -> exif.getAttribute(tag)?.trim()?.takeIf(::isDate) }
+        }
+    }.getOrNull()
+
+    private fun isDate(value: String) = TAKEN_FORMAT.matches(value) && !value.startsWith("0000")
 
     fun file(photo: Photo) = File(dir, photo.file)
 
@@ -79,5 +94,6 @@ class PhotoImporter(private val context: Context) {
 
     companion object {
         const val MAX_SIDE = 2048
+        private val TAKEN_FORMAT = Regex("""\d{4}:\d{2}:\d{2} \d{2}:\d{2}:\d{2}""")
     }
 }

@@ -176,3 +176,12 @@ fun formatDuration(ms: Long): String {
     val s = total % 60
     return if (h > 0) "%d:%02d:%02d".format(h, m, s) else "%d:%02d".format(m, s)
 }
+
+/** The EXIF shooting date ("yyyy:MM:dd HH:mm:ss") in the phone's language, e.g. "12 July 2019, 14:32" (#43). */
+fun formatTaken(taken: String?): String? {
+    if (taken == null) return null
+    val parsed = runCatching {
+        java.text.SimpleDateFormat("yyyy:MM:dd HH:mm:ss", java.util.Locale.US).apply { isLenient = false }.parse(taken)
+    }.getOrNull() ?: return null
+    return java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.LONG, java.text.DateFormat.SHORT).format(parsed)
+}
