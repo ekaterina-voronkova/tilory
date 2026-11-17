@@ -3,8 +3,8 @@
     <string name="continue_title">Продолжить</string>
     <string name="continue_detail">%1$d × %2$d · собрано %3$d%%</string>
     <string name="pick_gallery">Выбрать фото</string>
-    <string name="pick_files">Из файлов</string>
-    <string name="surprise_title">Сюрприз</string>
+    <string name="pick_files">Из папок и облака</string>
+    <string name="surprise_title">Случайное фото</string>
     <string name="history">История</string>
     <string name="settings">Настройки</string>
     <string name="replace_title">Начать новый пазл?</string>
@@ -67,23 +67,23 @@
         <item quantity="other">%d фото</item>
     </plurals>
     <string name="rotate_landscape">Поворачивать экран для горизонтальных фото</string>
-    <string name="sources_title">Папки для сюрприза</string>
-    <string name="sources_hint">Сюрприз берёт случайные фото из этих папок и их подпапок. Выбирайте папки с фото, которые хочется собирать: скриншоты и документы не попадут, если не выбирать их папки.</string>
+    <string name="sources_title">Папки для случайных фото</string>
+    <string name="sources_hint">Случайные фото берутся из этих папок и их подпапок. Выбирайте папки с фото, которые хочется собирать: скриншоты и документы не попадут, если не выбирать их папки.</string>
     <string name="sources_add">Добавить папку</string>
     <string name="sources_count">Фото: %1$d · ещё не было: %2$d</string>
     <string name="sources_counting">Считаю фото…</string>
     <string name="sources_remove">Убрать</string>
     <string name="sources_remove_title">Убрать «%s»?</string>
-    <string name="sources_remove_text">Сюрприз перестанет брать фото из этой папки. Сами фото не трогаются.</string>
+    <string name="sources_remove_text">Случайные фото больше не будут браться из этой папки. Сами фото не трогаются.</string>
     <string name="hidden_title">Скрытые фото</string>
     <string name="hidden_empty">Скрытых фото нет.</string>
     <string name="hidden_restore">Показывать снова</string>
-    <string name="hidden_restore_text">Разрешить сюрпризу снова показывать это фото?</string>
+    <string name="hidden_restore_text">Снова показывать это фото среди случайных?</string>
     <string name="skip_another">Просто хочу другое</string>
     <string name="skip_never">Больше не показывать это фото</string>
     <string name="skip_folder">Не брать фото из этой папки</string>
-    <string name="surprise_no_sources">Сначала выберите одну или несколько папок с фото: сюрприз будет брать из них случайные фото.</string>
-    <string name="surprise_all_used">Все фото из папок для сюрприза уже собраны. Добавьте ещё папку.</string>
-    <string name="surprise_unreadable">Не получилось открыть фото из папок для сюрприза. Проверьте папки.</string>
+    <string name="surprise_no_sources">Сначала выберите одну или несколько папок с фото: случайные фото будут браться из них.</string>
+    <string name="surprise_all_used">Все фото из папок для случайных фото уже собраны. Добавьте ещё папку.</string>
+    <string name="surprise_unreadable">Не получилось открыть фото из папок для случайных фото. Проверьте папки.</string>
     <string name="taken_at">Снято %s</string>
 </resources>

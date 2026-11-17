@@ -17,9 +17,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -39,6 +38,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -147,14 +147,19 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
                 }
             }
 
-            // Surprise is the main mode (design §2); with no folders yet it explains and offers to add them.
-            Button(onClick = guarded(vm::startSurprise), modifier = Modifier.fillMaxWidth()) {
+            // River-blue buttons, the colour of the river in the title logo, with dark text for contrast (#44).
+            // Random photo (Surprise) is the main mode (design §2); with no folders yet it offers to add them.
+            val river = ButtonDefaults.buttonColors(
+                containerColor = colorResource(R.color.river),
+                contentColor = colorResource(R.color.on_river),
+            )
+            Button(onClick = guarded(vm::startSurprise), modifier = Modifier.fillMaxWidth(), colors = river) {
                 Text(stringResource(R.string.surprise_title))
             }
-            FilledTonalButton(onClick = guarded(onPickGallery), modifier = Modifier.fillMaxWidth()) {
+            Button(onClick = guarded(onPickGallery), modifier = Modifier.fillMaxWidth(), colors = river) {
                 Text(stringResource(R.string.pick_gallery))
             }
-            OutlinedButton(onClick = guarded(onPickFiles), modifier = Modifier.fillMaxWidth()) {
+            Button(onClick = guarded(onPickFiles), modifier = Modifier.fillMaxWidth(), colors = river) {
                 Text(stringResource(R.string.pick_files))
             }
 

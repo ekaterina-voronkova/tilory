@@ -17,6 +17,8 @@ difficulty.
 
 ## 2. Modes
 ### Surprise (main mode)
+- Shown to the owner as **"Random photo"** ("Случайное фото") everywhere (#44); "Surprise" stays the name in code
+  and in this document.
 - The game picks a random photo from the sources the owner has set up: first a random folder (every folder equally
   likely, whatever its size; subfolders belong to the folder picked), then a random photo in it (#42).
 - The photo stays unknown until the puzzle is solved: a "closed box". No thumbnail anywhere: not on the main screen,
@@ -153,7 +155,7 @@ A list of the app's screens and how to get from one to another.
   picture title small at the bottom; it lasts only as long as the start (#33).
 - **Main:** the picture title "Tilory" (letters filled with the icon landscape) centred in the upper third (#32), with the tagline "Every picture tells a story, tile by tile" under it — italic,
   English in every language, part of the logo (#36),
-  over a full-screen background of the owner's watercolour (cropped at the sides, dimmed in dark mode, #34); at the bottom of the screen (#35) "Continue" (if a puzzle is unfinished), "Surprise", "Own pick", and entries to History and Settings.
+  over a full-screen background of the owner's watercolour (cropped at the sides, dimmed in dark mode, #34); at the bottom of the screen (#35) "Continue" (if a puzzle is unfinished), then three river-blue buttons (the river colour of the title logo, #3FBEEC, dark text; #44): "Random photo" (Surprise), "Pick a photo", "From folders and cloud" (the system file picker); then the History / Settings row.
 - **Landscape photos** (#39): with the setting "Turn the screen for landscape photos" on (default), the puzzle and
   completion screens turn to landscape when the photo is wider than tall, even with auto-rotate off; the game bar then
   becomes a narrow column at the side. The grid limit on the options screen is computed for that orientation. Other

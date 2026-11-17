@@ -3,4 +3,7 @@
     <color name="icon_background">#FFF3F4F5</color>
     <!-- Window and splash background (#33): the icon background, dark in dark mode (values-night). -->
     <color name="window_background">#FFF3F4F5</color>
+    <!-- Main screen buttons (#44): the river in the title logo, and dark text on it for contrast. -->
+    <color name="river">#FF3FBEEC</color>
+    <color name="on_river">#FF0B2F45</color>
 </resources>
