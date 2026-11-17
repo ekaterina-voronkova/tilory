@@ -67,4 +67,5 @@
         <item quantity="many">%d фото</item>
         <item quantity="other">%d фото</item>
     </plurals>
+    <string name="rotate_landscape">Поворачивать экран для горизонтальных фото</string>
 </resources>

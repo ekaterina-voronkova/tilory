@@ -47,15 +47,28 @@ import com.voronkova.tilory.game.Grid
 import com.voronkova.tilory.game.GridChooser
 import kotlin.math.roundToInt
 
-/** Screen space the puzzle screen keeps for its top bar, system bars and margins, in dp. */
-private const val PUZZLE_CHROME_DP = 150f
-private const val PUZZLE_SIDE_MARGIN_DP = 16f
+/** Rough size of the system bars around the puzzle, in dp (status bar plus navigation bar). */
+private const val SYSTEM_BARS_DP = 80f
 
+/**
+ * The largest grid for [photo] with tiles of at least [minTileDp], for the orientation the puzzle will use: landscape
+ * photos are played in landscape when the setting is on (#39).
+ */
 @Composable
-fun maxGridFor(photo: Photo, minTileDp: Int = MIN_TILE_DP): Grid {
+fun maxGridFor(photo: Photo, landscape: Boolean, minTileDp: Int = MIN_TILE_DP): Grid {
     val config = LocalConfiguration.current
-    val availW = config.screenWidthDp - PUZZLE_SIDE_MARGIN_DP
-    val availH = config.screenHeightDp - PUZZLE_CHROME_DP
+    val long = maxOf(config.screenWidthDp, config.screenHeightDp).toFloat()
+    val short = minOf(config.screenWidthDp, config.screenHeightDp).toFloat()
+    val margins = 2f * BOARD_MARGIN_DP
+    val availW: Float
+    val availH: Float
+    if (landscape) {
+        availW = long - SIDE_BAR_WIDTH_DP - margins - SYSTEM_BARS_DP / 2
+        availH = short - margins - SYSTEM_BARS_DP / 2
+    } else {
+        availW = short - margins
+        availH = long - BAR_HEIGHT_DP - margins - SYSTEM_BARS_DP
+    }
     val aspect = photo.aspect
     val (w, h) = if (aspect > availW / availH) availW to availW / aspect else availH * aspect to availH
     return GridChooser.maxGrid(w, h, minTileDp.toFloat())
@@ -66,7 +79,7 @@ fun maxGridFor(photo: Photo, minTileDp: Int = MIN_TILE_DP): Grid {
 fun OptionsScreen(vm: TiloryViewModel, photo: Photo) {
     val data by vm.data.collectAsStateWithLifecycle()
     val settings = data.settings
-    val maxGrid = maxGridFor(photo)
+    val maxGrid = maxGridFor(photo, landscape = settings.rotateLandscape && photo.width > photo.height)
     val maxTiles = maxGrid.count.coerceAtLeast(9)
 
     var preset by remember {

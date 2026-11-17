@@ -87,67 +87,76 @@ fun PuzzleScreen(vm: TiloryViewModel) {
         }
     }
 
-    // The game row is at the bottom, where the completion screen has its buttons, so the photo area is the same on
-    // both screens and the solved photo does not move (#22, #27).
-    Column(
-        Modifier
-            .fillMaxSize()
-            .statusBarsPadding()
-            .navigationBarsPadding(),
-    ) {
-        Box(
-            Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .padding(8.dp),
-            contentAlignment = Alignment.Center,
-        ) {
-            val b = board
+    // Same layout as the completion screen, so the solved photo does not move; the bar is at the bottom in portrait
+    // and at the side in landscape (#22, #27, #39).
+    GameLayout(
+        bar = { vertical ->
             val img = image
-            if (b == null || img == null) {
-                CircularProgressIndicator()
-            } else {
-                BoardView(
-                    board = b,
-                    image = img,
-                    solved = solved,
-                    peek = peek,
-                    vibration = data.settings.vibration,
-                    onMove = vm::move,
-                )
-            }
-        }
-
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-                .padding(horizontal = 4.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            IconButton(onClick = vm::back) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back))
-            }
-            board?.let { Text("${it.rows} × ${it.cols}", style = MaterialTheme.typography.titleMedium) }
-            Spacer(Modifier.weight(1f))
-            val img = image
-            if (!solved && img != null) {
-                when (reference) {
-                    ReferenceMode.PEEK -> PeekButton { peek = it }
-                    ReferenceMode.ALWAYS -> Image(
-                        img,
-                        null,
-                        Modifier
-                            .size(44.dp)
-                            .clip(MaterialTheme.shapes.small),
-                        contentScale = ContentScale.Crop,
-                    )
-                    ReferenceMode.OFF -> Unit
+            val referenceControl: @Composable () -> Unit = {
+                if (!solved && img != null) {
+                    when (reference) {
+                        ReferenceMode.PEEK -> PeekButton { peek = it }
+                        ReferenceMode.ALWAYS -> Image(
+                            img,
+                            null,
+                            Modifier
+                                .size(44.dp)
+                                .clip(MaterialTheme.shapes.small),
+                            contentScale = ContentScale.Crop,
+                        )
+                        ReferenceMode.OFF -> Unit
+                    }
                 }
             }
-            if (!solved) {
-                TextButton(onClick = vm::skip) { Text(stringResource(R.string.skip)) }
+            val back: @Composable () -> Unit = {
+                IconButton(onClick = vm::back) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back))
+                }
             }
+            val size: @Composable () -> Unit = {
+                board?.let { Text("${it.rows} × ${it.cols}", style = MaterialTheme.typography.titleMedium) }
+            }
+            val skip: @Composable () -> Unit = {
+                if (!solved) TextButton(onClick = vm::skip) { Text(stringResource(R.string.skip)) }
+            }
+            if (vertical) {
+                Column(
+                    Modifier.fillMaxSize().padding(vertical = 8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    back()
+                    size()
+                    Spacer(Modifier.weight(1f))
+                    referenceControl()
+                    skip()
+                }
+            } else {
+                Row(
+                    Modifier.fillMaxSize().padding(horizontal = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    back()
+                    size()
+                    Spacer(Modifier.weight(1f))
+                    referenceControl()
+                    skip()
+                }
+            }
+        },
+    ) {
+        val b = board
+        val img = image
+        if (b == null || img == null) {
+            CircularProgressIndicator()
+        } else {
+            BoardView(
+                board = b,
+                image = img,
+                solved = solved,
+                peek = peek,
+                vibration = data.settings.vibration,
+                onMove = vm::move,
+            )
         }
     }
 }

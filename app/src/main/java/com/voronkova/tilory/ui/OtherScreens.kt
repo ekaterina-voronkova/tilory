@@ -67,9 +67,8 @@ import kotlin.math.roundToInt
 // --- Completion (design §6) ---
 
 /**
- * Same layout as the puzzle screen (status bar, photo area with 8 dp padding, 56 dp bottom row), so the solved photo
- * stays exactly where the board was (#22, #27). Bottom row: Home, Next puzzle (centred), History. The solve time is
- * only in History.
+ * Same layout as the puzzle screen ([GameLayout]), so the solved photo stays exactly where the board was (#22, #27,
+ * #39). Bar: Home, Next puzzle (centred), History. The solve time is only in History.
  */
 @Composable
 fun CompletionScreen(vm: TiloryViewModel, entry: HistoryEntry, onNext: () -> Unit) {
@@ -77,35 +76,33 @@ fun CompletionScreen(vm: TiloryViewModel, entry: HistoryEntry, onNext: () -> Uni
     val puzzleImage by vm.image.collectAsStateWithLifecycle()
     val stored = rememberPhoto(vm, entry.photo, thumbnail = false)
     val image = puzzleImage ?: stored
-    Column(
-        Modifier
-            .fillMaxSize()
-            .statusBarsPadding()
-            .navigationBarsPadding(),
+    GameLayout(
+        bar = { vertical ->
+            val home: @Composable (Modifier) -> Unit = { m ->
+                TextButton(onClick = { vm.show(Screen.Home) }, m) { Text(stringResource(R.string.home)) }
+            }
+            val next: @Composable (Modifier) -> Unit = { m ->
+                Button(onClick = onNext, modifier = m) {
+                    Text(stringResource(R.string.next_puzzle), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                }
+            }
+            val history: @Composable (Modifier) -> Unit = { m ->
+                TextButton(onClick = { vm.show(Screen.History) }, m) { Text(stringResource(R.string.history)) }
+            }
+            Box(Modifier.fillMaxSize().padding(4.dp)) {
+                if (vertical) {
+                    home(Modifier.align(Alignment.TopCenter))
+                    next(Modifier.align(Alignment.Center))
+                    history(Modifier.align(Alignment.BottomCenter))
+                } else {
+                    home(Modifier.align(Alignment.CenterStart))
+                    next(Modifier.align(Alignment.Center))
+                    history(Modifier.align(Alignment.CenterEnd))
+                }
+            }
+        },
     ) {
-        Box(
-            Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .padding(8.dp),
-            contentAlignment = Alignment.Center,
-        ) {
-            image?.let { ZoomableImage(it, background = false) }
-        }
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-                .padding(horizontal = 4.dp),
-        ) {
-            TextButton(onClick = { vm.show(Screen.Home) }, Modifier.align(Alignment.CenterStart)) {
-                Text(stringResource(R.string.home))
-            }
-            Button(onClick = onNext, Modifier.align(Alignment.Center)) { Text(stringResource(R.string.next_puzzle)) }
-            TextButton(onClick = { vm.show(Screen.History) }, Modifier.align(Alignment.CenterEnd)) {
-                Text(stringResource(R.string.history))
-            }
-        }
+        image?.let { ZoomableImage(it, background = false) }
     }
 }
 
@@ -306,6 +303,13 @@ fun SettingsScreen(vm: TiloryViewModel) {
             }
 
             HorizontalDivider()
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(stringResource(R.string.rotate_landscape), Modifier.weight(1f))
+                Switch(
+                    checked = settings.rotateLandscape,
+                    onCheckedChange = { on -> vm.updateSettings { it.copy(rotateLandscape = on) } },
+                )
+            }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(stringResource(R.string.vibration), Modifier.weight(1f))
                 Switch(

@@ -45,6 +45,8 @@ data class Settings(
     val vibration: Boolean = true,
     /** When off, solved puzzles are not added to History (#38). */
     val keepHistory: Boolean = true,
+    /** Turn the screen to landscape for landscape photos (#39). */
+    val rotateLandscape: Boolean = true,
 )
 
 /** The smallest tile allowed, in dp; limits the largest grid (design §4, #17). */

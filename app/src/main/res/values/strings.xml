@@ -67,4 +67,5 @@
         <item quantity="one">%d photo</item>
         <item quantity="other">%d photos</item>
     </plurals>
+    <string name="rotate_landscape">Turn the screen for landscape photos</string>
 </resources>

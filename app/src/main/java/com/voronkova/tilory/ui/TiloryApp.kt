@@ -1,5 +1,7 @@
 package com.voronkova.tilory.ui
 
+import android.app.Activity
+import android.content.pm.ActivityInfo
 import android.os.Build
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -75,6 +77,24 @@ fun TiloryApp(vm: TiloryViewModel) {
     val pickFiles = { files.launch(arrayOf("image/*")) }
 
     BackHandler(enabled = screen != Screen.Home) { vm.back() }
+
+    // Landscape photos turn the puzzle and completion screens to landscape, so the board is bigger (#39).
+    val data by vm.data.collectAsStateWithLifecycle()
+    val image by vm.image.collectAsStateWithLifecycle()
+    val photoIsLandscape = when (val s = screen) {
+        Screen.Puzzle -> data.current?.photo?.let { it.width > it.height } ?: image?.let { it.width > it.height }
+        is Screen.Completion -> s.entry.photo.let { it.width > it.height }
+        else -> null
+    } ?: false
+    val wantLandscape = data.settings.rotateLandscape && photoIsLandscape
+    val activity = LocalContext.current as? Activity
+    LaunchedEffect(wantLandscape) {
+        activity?.requestedOrientation = if (wantLandscape) {
+            ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        } else {
+            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        }
+    }
 
     Box(Modifier.fillMaxSize()) {
         when (val s = screen) {
