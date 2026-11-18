@@ -280,11 +280,13 @@ private fun LaunchLogo() {
                 painterResource(R.drawable.studio_logo),
                 contentDescription = stringResource(R.string.studio_name),
                 modifier = Modifier
-                    .widthIn(max = 360.dp)
-                    .fillMaxWidth(0.75f)
-                    .clip(RoundedCornerShape(16.dp)),
+                    .widthIn(max = 240.dp)
+                    .fillMaxWidth(0.5f)
+                    .clip(RoundedCornerShape(12.dp)),
                 contentScale = ContentScale.FillWidth,
             )
+            // A little above the bottom edge (#53).
+            Spacer(Modifier.height(48.dp))
         }
     }
 }
