@@ -159,7 +159,8 @@ A list of the app's screens and how to get from one to another.
 - **Landscape photos** (#39): with the setting "Turn the screen for landscape photos" on (default), the puzzle and
   completion screens turn to landscape when the photo is wider than tall, even with auto-rotate off; the game bar then
   becomes a narrow column at the side. The grid limit on the options screen is computed for that orientation. Other
-  screens follow the phone as usual.
+  screens follow the phone as usual. "Next puzzle" there turns the screen to portrait first and only then opens the
+  photo picker; cancelling the picker turns it back (#52).
 - **Puzzle:** the board, and below it one row (#27): a back button that returns to Main (progress is kept), the grid
   size, the reference-image button (if enabled) and Skip.
 - **New puzzle options:** grid size (presets + custom) and the reference-image setting; shown before a puzzle starts,

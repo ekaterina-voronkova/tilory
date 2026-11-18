@@ -66,8 +66,13 @@ fun TiloryApp(vm: TiloryViewModel) {
     val busy by vm.busy.collectAsStateWithLifecycle()
     val error by vm.error.collectAsStateWithLifecycle()
 
+    // "Next puzzle" after a landscape photo: turn to portrait first, then open the picker (#52).
+    var pickingNext by remember { mutableStateOf(false) }
+    var launchNextPicker by remember { mutableStateOf(false) }
+
     val gallery = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        uri?.let(vm::importPhoto)
+        // Cancelled: back to the completion screen's orientation. Picked: stay portrait until the options screen.
+        if (uri == null) pickingNext = false else vm.importPhoto(uri)
     }
     val files = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         uri?.let(vm::importPhoto)
@@ -92,11 +97,19 @@ fun TiloryApp(vm: TiloryViewModel) {
     } ?: false
     val wantLandscape = data.settings.rotateLandscape && photoIsLandscape
     val activity = LocalContext.current as? Activity
-    LaunchedEffect(wantLandscape) {
-        activity?.requestedOrientation = if (wantLandscape) {
-            ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
-        } else {
-            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+    LaunchedEffect(screen, error) { if (screen !is Screen.Completion || error) pickingNext = false }
+    val orientation = when {
+        pickingNext -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        wantLandscape -> ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        else -> ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+    }
+    LaunchedEffect(orientation) { activity?.requestedOrientation = orientation }
+    // The picker opens only once the screen has actually turned, so it never shows up in landscape (#52).
+    val landscapeNow = isLandscape()
+    LaunchedEffect(launchNextPicker, landscapeNow) {
+        if (launchNextPicker && !landscapeNow) {
+            launchNextPicker = false
+            pickGallery()
         }
     }
 
@@ -115,7 +128,14 @@ fun TiloryApp(vm: TiloryViewModel) {
             is Screen.Completion -> CompletionScreen(
                 vm,
                 s.entry,
-                onNext = if (s.mode == Mode.SURPRISE) vm::startSurprise else pickGallery,
+                onNext = if (s.mode == Mode.SURPRISE) {
+                    vm::startSurprise
+                } else {
+                    {
+                        pickingNext = true
+                        launchNextPicker = true
+                    }
+                },
             )
             Screen.History -> HistoryScreen(vm)
             is Screen.Viewer -> ViewerScreen(vm, s.entry)
