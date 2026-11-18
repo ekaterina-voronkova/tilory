@@ -7,7 +7,21 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import kotlinx.coroutines.delay
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -163,6 +177,8 @@ fun TiloryApp(vm: TiloryViewModel) {
                 }
             }
         }
+
+        LaunchLogo()
     }
 
     SkipQuestionDialog(vm)
@@ -204,4 +220,39 @@ fun formatTaken(taken: String?): String? {
         java.text.SimpleDateFormat("yyyy:MM:dd HH:mm:ss", java.util.Locale.US).apply { isLenient = false }.parse(taken)
     }.getOrNull() ?: return null
     return java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.LONG, java.text.DateFormat.SHORT).format(parsed)
+}
+
+/**
+ * The family studio logo for a moment at launch (#53): the system splash shows nothing on some phones (#33).
+ * It covers the normal screens, which load underneath; a tap skips it. Shown once per launch.
+ */
+@Composable
+private fun LaunchLogo() {
+    var visible by rememberSaveable { mutableStateOf(true) }
+    LaunchedEffect(Unit) {
+        delay(1_200)
+        visible = false
+    }
+    AnimatedVisibility(visible, enter = EnterTransition.None, exit = fadeOut()) {
+        Box(
+            Modifier
+                .fillMaxSize()
+                .background(colorResource(R.color.window_background))
+                .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) {
+                    visible = false
+                },
+            contentAlignment = Alignment.Center,
+        ) {
+            // On a white plate in every theme: the owner's choice (#53).
+            Image(
+                painterResource(R.drawable.studio_logo),
+                contentDescription = stringResource(R.string.studio_name),
+                modifier = Modifier
+                    .padding(32.dp)
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(24.dp)),
+                contentScale = ContentScale.FillWidth,
+            )
+        }
+    }
 }

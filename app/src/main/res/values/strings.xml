@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Tilory</string>
+    <string name="studio_name" translatable="false">Voronkov Family</string>
     <string name="home_tagline" translatable="false">Every picture tells a story, tile by tile</string>
     <string name="continue_title">Continue</string>
     <string name="continue_detail">%1$d × %2$d · %3$d%% assembled</string>
