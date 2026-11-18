@@ -15,6 +15,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.draw.clip
@@ -223,34 +229,60 @@ fun formatTaken(taken: String?): String? {
 }
 
 /**
- * The family studio logo for a moment at launch (#53): the system splash shows nothing on some phones (#33).
- * It covers the normal screens, which load underneath; a tap skips it. Shown once per launch.
+ * The launch screen (#53): the game icon and the picture title above, the Voronkov Family studio logo below. The
+ * system splash is only a plain colour (#33), so this is the one screen seen at launch. It covers the normal
+ * screens, which load underneath; a tap skips it. Shown once per launch.
  */
 @Composable
 private fun LaunchLogo() {
     var visible by rememberSaveable { mutableStateOf(true) }
     LaunchedEffect(Unit) {
-        delay(1_200)
+        delay(1_500)
         visible = false
     }
     AnimatedVisibility(visible, enter = EnterTransition.None, exit = fadeOut()) {
-        Box(
+        Column(
             Modifier
                 .fillMaxSize()
                 .background(colorResource(R.color.window_background))
                 .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) {
                     visible = false
-                },
-            contentAlignment = Alignment.Center,
+                }
+                .systemBarsPadding()
+                .padding(32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            Spacer(Modifier.weight(1f))
+            // The launcher icon drawn from its layers: the inner 72 of the 108 units show, as on the home screen.
+            Box(
+                Modifier
+                    .size(112.dp)
+                    .clip(RoundedCornerShape(28.dp))
+                    .background(colorResource(R.color.icon_background)),
+                contentAlignment = Alignment.Center,
+            ) {
+                Image(
+                    painterResource(R.mipmap.ic_launcher_foreground),
+                    contentDescription = null,
+                    modifier = Modifier.requiredSize(168.dp),
+                )
+            }
+            Spacer(Modifier.height(24.dp))
+            Image(
+                painterResource(R.drawable.title_logo),
+                contentDescription = stringResource(R.string.app_name),
+                modifier = Modifier.widthIn(max = 480.dp).fillMaxWidth(),
+                contentScale = ContentScale.FillWidth,
+            )
+            Spacer(Modifier.weight(1.5f))
             // On a white plate in every theme: the owner's choice (#53).
             Image(
                 painterResource(R.drawable.studio_logo),
                 contentDescription = stringResource(R.string.studio_name),
                 modifier = Modifier
-                    .padding(32.dp)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(24.dp)),
+                    .widthIn(max = 360.dp)
+                    .fillMaxWidth(0.75f)
+                    .clip(RoundedCornerShape(16.dp)),
                 contentScale = ContentScale.FillWidth,
             )
         }

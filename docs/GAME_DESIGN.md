@@ -151,10 +151,11 @@ puzzle instant. Until this exists, choosing the Surprise folders carefully is th
 ## 11. Screens and navigation
 A list of the app's screens and how to get from one to another.
 
-- **Launch:** the Android 12+ splash — the app icon in the centre on the icon background (dark in dark mode), the
-  picture title small at the bottom; it lasts only as long as the start (#33). Some phones (the owner's Xiaomi) show
-  only the background colour there, so the app then shows the Voronkov Family studio logo itself for about 1.2 s, on a
-  white rounded plate in every theme, fading out into the main screen; a tap skips it (#53).
+- **Launch:** one screen, drawn by the app: the game icon and the picture title in the upper part, the Voronkov
+  Family studio logo at the bottom on a white rounded plate (white in every theme), on the window colour (dark in dark
+  mode). It stays about 1.5 s and fades into the main screen; a tap skips it (#53). The Android 12+ system splash is
+  only that plain colour (empty icon, no branding image): with the icon it showed two launch screens in a row, and
+  the owner's Xiaomi often showed it empty anyway (#33).
 - **Main:** the picture title "Tilory" (letters filled with the icon landscape) centred in the upper third (#32), with the tagline "Every picture tells a story, tile by tile" under it — italic,
   English in every language, part of the logo (#36),
   over a full-screen background of the owner's watercolour (cropped at the sides, dimmed by 40% in dark mode, #34, #50); at the bottom of the screen (#35) "Continue" (if a puzzle is unfinished), then three buttons drawn like the logo letters (cream outline #FBEEDE, soft shadow, dark text; #44, #46): "Random photo" (Surprise) in the sky blue #7DCFFA, "Pick a photo" in the river blue #3FBEEC, "From folders and cloud" (the system file picker) in the light mountain blue #7C9EB8 (#49); then the History / Settings row.
