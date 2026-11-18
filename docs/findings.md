@@ -145,3 +145,15 @@ Detailed release history. Issues are the index; this file is the detail.
 - Build: local, same toolchain and debug key.
 - Checked: 23 unit tests, lint clean, APK badging 0.7.2. Not checked: on the phone.
 - Retention: v0.6.0 release deleted (tag kept); on GitHub now v0.7.2, v0.7.1, v0.7.0.
+
+## v0.7.3 — studio logo at launch, portrait picker after a landscape puzzle (#54)
+- Commit: 1b461a8. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.7.3
+- Changes, versionCode 14:
+  - #52 (326743c): "Next puzzle" after a landscape photo forces portrait and opens the Photo Picker only once the
+    screen has turned, so the picker never appears in landscape.
+  - #53 (8293370): a Compose overlay (`LaunchLogo` in `ui/TiloryApp.kt`) shows the Voronkov Family logo on a white
+    rounded plate for 1.2 s, then fades out; a tap skips it. Cause: on the owner's Xiaomi the Android 12+ system
+    splash (#33) shows only the background colour. The logo asset is cropped from the owner's white-background
+    ChatGPT export; the transparent exports had a white halo at the edges.
+- Build: local, same toolchain and debug key. Release v0.7.0 deleted (tag kept).
+- Checked: unit tests and lint pass (no new warnings), APK badging shows 0.7.3 / 14. Not checked on the phone.
