@@ -6,7 +6,8 @@ import kotlinx.serialization.Serializable
 enum class ReferenceMode { OFF, PEEK, ALWAYS }
 
 @Serializable
-enum class Mode { OWN, SURPRISE }
+/** OWN: picked by the owner; SURPRISE: from the Surprise folders; COLLECTION: a random photo of the Tilory collection (#57). */
+enum class Mode { OWN, SURPRISE, COLLECTION }
 
 /** A photo copied into the app (design §9): a downscaled JPEG in filesDir/photos. */
 @Serializable
@@ -88,4 +89,6 @@ data class AppData(
     val history: List<HistoryEntry> = emptyList(),
     val settings: Settings = Settings(),
     val surprise: SurpriseMemory = SurpriseMemory(),
+    /** Tilory collection photos already solved, by id (#57): check marks in the grid, and Random skips them. */
+    val collectionSolved: Set<String> = emptySet(),
 )

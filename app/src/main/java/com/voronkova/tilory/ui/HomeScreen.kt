@@ -155,6 +155,8 @@ fun HomeScreen(vm: TiloryViewModel, onPickGallery: () -> Unit, onPickFiles: () -
             LogoButton(stringResource(R.string.surprise_title), colorResource(R.color.sky), guarded(vm::startSurprise))
             LogoButton(stringResource(R.string.pick_gallery), colorResource(R.color.river), guarded(onPickGallery))
             LogoButton(stringResource(R.string.pick_files), colorResource(R.color.mountain), guarded(onPickFiles))
+            // The built-in photos (#57): last, in the meadow green of the logo.
+            LogoButton(stringResource(R.string.collection_title), colorResource(R.color.grass), guarded { vm.show(Screen.Collection) })
 
             Row(
                 Modifier

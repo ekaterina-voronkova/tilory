@@ -8,5 +8,7 @@
     <color name="mountain">#FF7C9EB8</color>
     <color name="logo_outline">#FFFBEEDE</color>
     <color name="river">#FF3FBEEC</color>
+    <!-- The Tilory collection button (#57): the light meadow green of the title logo. -->
+    <color name="grass">#FF84A866</color>
     <color name="on_river">#FF0B2F45</color>
 </resources>

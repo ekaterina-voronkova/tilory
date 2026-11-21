@@ -34,6 +34,19 @@ difficulty.
 - The reference image is available, and the photo is visible in the picker, so there is nothing to hide.
 - A photo already solved can be picked again.
 
+### Tilory collection (#57)
+- The owner's own photos built into the game ("Коллекция Tilory"), so a puzzle can be played without photos on the
+  phone. First set: 103 photos (sea, mountains, flowers, trees, towns, cats).
+- Published on purpose with the game (an owner-confirmed exception to the privacy rule). Prepared before going in:
+  turned upright, at most 1600 px on the long side, JPEG quality 82, no EXIF at all (no place, no date, no camera).
+  They live in `assets/collection` with 360 px thumbnails and an `index.json`; about 37 MB.
+- The screen: "Random from the collection" on top, then a grid of thumbnails; solved ones carry a check mark.
+  - Picking a thumbnail works like Own pick: the options screen, then the puzzle. "Next puzzle" returns to the grid.
+  - Random works like Surprise: a closed box with the Surprise difficulty and reference image, unsolved photos
+    first (all of them again once every one is solved). "Next puzzle" starts another random one; skip offers Undo
+    only, like Own pick.
+- No shooting date is shown for these photos.
+
 ## 3. Core mechanic
 - **Board.** The picture is cut into a grid of rows × columns of equal rectangular tiles. The board always has exactly
   one cell per tile: there is no tray and no empty cell.
@@ -159,7 +172,7 @@ A list of the app's screens and how to get from one to another.
   the owner's Xiaomi often showed it empty anyway (#33).
 - **Main:** the picture title "Tilory" (letters filled with the icon landscape) centred in the upper third (#32), with the tagline "Every picture tells a story, tile by tile" under it — italic,
   English in every language, part of the logo (#36),
-  over a full-screen background of the owner's watercolour (cropped at the sides, dimmed by 40% in dark mode, #34, #50); at the bottom of the screen (#35) "Continue" (if a puzzle is unfinished), then three buttons drawn like the logo letters (cream outline #FBEEDE, soft shadow, dark text; #44, #46): "Random photo" (Surprise) in the sky blue #7DCFFA, "Pick a photo" in the river blue #3FBEEC, "From folders and cloud" (the system file picker) in the light mountain blue #7C9EB8 (#49); then the History / Settings row.
+  over a full-screen background of the owner's watercolour (cropped at the sides, dimmed by 40% in dark mode, #34, #50); at the bottom of the screen (#35) "Continue" (if a puzzle is unfinished), then three buttons drawn like the logo letters (cream outline #FBEEDE, soft shadow, dark text; #44, #46): "Random photo" (Surprise) in the sky blue #7DCFFA, "Pick a photo" in the river blue #3FBEEC, "From folders and cloud" (the system file picker) in the light mountain blue #7C9EB8 (#49), "Tilory collection" in the meadow green #84A866 (#57); then the History / Settings row.
 - **Landscape photos** (#39): with the setting "Turn the screen for landscape photos" on (default), the puzzle and
   completion screens turn to landscape when the photo is wider than tall, even with auto-rotate off; the game bar then
   becomes a narrow column at the side. The grid limit on the options screen is computed for that orientation. Other

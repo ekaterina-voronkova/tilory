@@ -60,6 +60,9 @@
     <string name="clear_history_title">Очистить историю?</string>
     <string name="clear_history_text">Из приложения удалятся %1$s (%2$s). Это нельзя отменить. Оригиналы в галерее не пострадают.</string>
     <string name="delete">Удалить</string>
+    <string name="collection_title">Коллекция Tilory</string>
+    <string name="collection_random">Случайное из коллекции</string>
+    <string name="collection_solved">Собрано</string>
     <string name="delete_from_history">Удалить из истории</string>
     <string name="delete_from_history_title">Удалить из истории?</string>
     <string name="delete_from_history_text">Фото исчезнет из истории. Это нельзя отменить. Оригинал в галерее не пострадает.</string>

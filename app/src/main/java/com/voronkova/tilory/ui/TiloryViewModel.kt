@@ -8,6 +8,8 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.voronkova.tilory.data.AppData
+import com.voronkova.tilory.data.CollectionItem
+import com.voronkova.tilory.data.TiloryCollection
 import com.voronkova.tilory.data.FolderImage
 import com.voronkova.tilory.data.Folders
 import com.voronkova.tilory.data.HiddenPhoto
@@ -46,6 +48,7 @@ sealed interface Screen {
     data object Settings : Screen
     data object Sources : Screen
     data object Hidden : Screen
+    data object Collection : Screen
 }
 
 /** Why Surprise could not start. */
@@ -178,25 +181,57 @@ class TiloryViewModel(app: Application) : AndroidViewModel(app) {
             val result = withContext(Dispatchers.IO) { pickSurprise(memory) }
             _busy.value = false
             when (result) {
-                is SurprisePick.Found -> {
-                    val (photo, image) = result
-                    val settings = _data.value.settings
-                    val config = getApplication<Application>().resources.configuration
-                    val landscape = settings.rotateLandscape && photo.width > photo.height
-                    val max = maxGridFor(photo, landscape, config.screenWidthDp, config.screenHeightDp)
-                    val target = settings.surpriseTiles.coerceAtMost(max.count.coerceAtLeast(9))
-                    val grid = GridChooser.choose(target, photo.aspect, max.rows, max.cols)
-                    val board = Board.shuffled(grid.rows, grid.cols)
-                    val state = PuzzleState(
-                        photo, Mode.SURPRISE, grid.rows, grid.cols, board.tiles, 0L, settings.surpriseReference,
-                        document = image.document, tree = image.tree,
-                    )
-                    _skipped.value = null
-                    update { it.copy(current = state) }
-                    openPuzzle(state)
-                }
+                is SurprisePick.Found -> startHidden(result.photo, Mode.SURPRISE, result.image.document, result.image.tree)
                 is SurprisePick.Problem -> _surpriseProblem.value = result.problem
             }
+        }
+    }
+
+    /** A puzzle that is never shown before it is solved (Surprise, Random from the collection): Surprise settings. */
+    private fun startHidden(photo: Photo, mode: Mode, document: String? = null, tree: String? = null) {
+        val settings = _data.value.settings
+        val config = getApplication<Application>().resources.configuration
+        val landscape = settings.rotateLandscape && photo.width > photo.height
+        val max = maxGridFor(photo, landscape, config.screenWidthDp, config.screenHeightDp)
+        val target = settings.surpriseTiles.coerceAtMost(max.count.coerceAtLeast(9))
+        val grid = GridChooser.choose(target, photo.aspect, max.rows, max.cols)
+        val board = Board.shuffled(grid.rows, grid.cols)
+        val state = PuzzleState(
+            photo, mode, grid.rows, grid.cols, board.tiles, 0L, settings.surpriseReference,
+            document = document, tree = tree,
+        )
+        _skipped.value = null
+        update { it.copy(current = state) }
+        openPuzzle(state)
+    }
+
+    // --- Tilory collection (#57) ---
+
+    val collection = TiloryCollection(app)
+
+    /** A photo picked in the collection grid: on to the options screen, like the owner's own photos. */
+    fun pickFromCollection(item: CollectionItem) {
+        _busy.value = true
+        viewModelScope.launch {
+            val photo = runCatching {
+                withContext(Dispatchers.IO) { photos.importAsset(item, collection.assetPath(item)) }
+            }.getOrNull()
+            _busy.value = false
+            if (photo == null) _error.value = true else _screen.value = Screen.Options(photo)
+        }
+    }
+
+    /** A random unsolved collection photo, never shown before it is solved, with the Surprise settings. */
+    fun startCollectionRandom() {
+        val candidates = TiloryCollection.candidates(collection.items, _data.value.collectionSolved)
+        val item = candidates.randomOrNull() ?: return
+        _busy.value = true
+        viewModelScope.launch {
+            val photo = runCatching {
+                withContext(Dispatchers.IO) { photos.importAsset(item, collection.assetPath(item)) }
+            }.getOrNull()
+            _busy.value = false
+            if (photo == null) _error.value = true else startHidden(photo, Mode.COLLECTION)
         }
     }
 
@@ -343,7 +378,9 @@ class TiloryViewModel(app: Application) : AndroidViewModel(app) {
             } else {
                 it.surprise
             }
-            it.copy(current = null, history = history, surprise = surprise)
+            // Collection photos get a check mark however they were started (#57).
+            val collectionSolved = it.collectionSolved + listOfNotNull(TiloryCollection.idOf(current.photo))
+            it.copy(current = null, history = history, surprise = surprise, collectionSolved = collectionSolved)
         }
         viewModelScope.launch {
             delay(1200)

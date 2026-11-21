@@ -76,6 +76,18 @@ class PhotoImporter(private val context: Context) {
 
     private fun isDate(value: String) = TAKEN_FORMAT.matches(value) && !value.startsWith("0000")
 
+    /** Copies a Tilory collection photo into the photo folder; it is already prepared, so no re-encoding (#57). */
+    fun importAsset(item: CollectionItem, assetPath: String): Photo {
+        val name = TiloryCollection.fileName(item)
+        val out = File(dir, name)
+        if (!out.exists()) {
+            val tmp = File(dir, "$name.tmp")
+            context.assets.open(assetPath).use { input -> tmp.outputStream().use { input.copyTo(it) } }
+            tmp.renameTo(out)
+        }
+        return Photo(name, item.width, item.height)
+    }
+
     fun file(photo: Photo) = File(dir, photo.file)
 
     fun load(photo: Photo): Bitmap? = BitmapFactory.decodeFile(file(photo).path)

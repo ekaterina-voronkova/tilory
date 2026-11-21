@@ -99,6 +99,9 @@
 - This repository is public.
 - Never write into issues, commits or notes the names of the owner's employer, work organisations, repositories or
   accounts, or personal paths and data. Photos from the owner's library never go into the repository.
+  - The one exception: the Tilory collection (`app/src/main/assets/collection`, #57). The owner chose to publish
+    these photos with the game. They go in only after preparation: turned upright, downscaled, every bit of EXIF
+    removed (GPS, date, camera). The source folder's path is not written anywhere in the repository.
 - Masking: anything such text has to mention gets replaced with a neutral description.
 
 ## Commits

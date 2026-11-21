@@ -61,6 +61,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.voronkova.tilory.R
 import com.voronkova.tilory.data.Mode
 import com.voronkova.tilory.data.Photo
+import com.voronkova.tilory.data.TiloryCollection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -133,9 +134,9 @@ fun TiloryApp(vm: TiloryViewModel) {
         }
     }
 
-    // A Surprise puzzle stays a closed box: no picture in the recent-apps thumbnail (design §12, #4). Android 13+
-    // can hide just the thumbnail, so screenshots still work.
-    val secret = screen == Screen.Puzzle && data.current?.mode == Mode.SURPRISE
+    // A Surprise or random collection puzzle stays a closed box: no picture in the recent-apps thumbnail (design §12,
+    // #4, #57). Android 13+ can hide just the thumbnail, so screenshots still work.
+    val secret = screen == Screen.Puzzle && data.current?.mode.let { it == Mode.SURPRISE || it == Mode.COLLECTION }
     LaunchedEffect(secret) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) activity?.setRecentsScreenshotEnabled(!secret)
     }
@@ -148,8 +149,13 @@ fun TiloryApp(vm: TiloryViewModel) {
             is Screen.Completion -> CompletionScreen(
                 vm,
                 s.entry,
+                // "Next puzzle" continues the same way the solved one was started (#57: collection grid / random).
                 onNext = if (s.mode == Mode.SURPRISE) {
                     vm::startSurprise
+                } else if (s.mode == Mode.COLLECTION) {
+                    vm::startCollectionRandom
+                } else if (TiloryCollection.idOf(s.entry.photo) != null) {
+                    { vm.show(Screen.Collection) }
                 } else {
                     {
                         pickingNext = true
@@ -162,6 +168,7 @@ fun TiloryApp(vm: TiloryViewModel) {
             Screen.Settings -> SettingsScreen(vm)
             Screen.Sources -> SourcesScreen(vm, onAddFolder = { folder.launch(null) })
             Screen.Hidden -> HiddenScreen(vm)
+            Screen.Collection -> CollectionScreen(vm)
         }
 
         if (busy) {
