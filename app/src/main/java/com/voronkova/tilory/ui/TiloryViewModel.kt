@@ -119,6 +119,16 @@ class TiloryViewModel(app: Application) : AndroidViewModel(app) {
         cleanUpPhotos()
     }
 
+    /**
+     * Removes one solved photo from History and goes back to the list (#55). The app's copy is deleted when nothing
+     * else refers to it; Surprise still remembers the photo as solved, so it does not come back there.
+     */
+    fun deleteFromHistory(entry: HistoryEntry) {
+        update { it.copy(history = it.history - entry) }
+        cleanUpPhotos()
+        _screen.value = Screen.History
+    }
+
     /** Disk space taken by the History photos, in bytes. Blocking: call off the main thread. */
     fun historyBytes(): Long =
         _data.value.history.map { it.photo.file }.distinct().sumOf { photos.file(Photo(it, 0, 0)).length() }

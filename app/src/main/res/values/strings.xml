@@ -63,6 +63,9 @@
     <string name="clear_history_title">Clear history?</string>
     <string name="clear_history_text">%1$s (%2$s) will be deleted from the app. This cannot be undone. The originals in your gallery are not affected.</string>
     <string name="delete">Delete</string>
+    <string name="delete_from_history">Delete from history</string>
+    <string name="delete_from_history_title">Delete from history?</string>
+    <string name="delete_from_history_text">This photo will be removed from History. This cannot be undone. The original in your gallery is not affected.</string>
     <plurals name="history_photos">
         <item quantity="one">%d photo</item>
         <item quantity="other">%d photos</item>

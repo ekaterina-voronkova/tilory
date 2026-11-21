@@ -38,6 +38,7 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -219,6 +220,7 @@ fun HistoryScreen(vm: TiloryViewModel) {
 @Composable
 fun ViewerScreen(vm: TiloryViewModel, entry: HistoryEntry) {
     val image = rememberPhoto(vm, entry.photo, thumbnail = false)
+    var confirmDelete by remember { mutableStateOf(false) }
     val date = remember(entry) {
         DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(entry.solvedAt))
     }
@@ -244,11 +246,38 @@ fun ViewerScreen(vm: TiloryViewModel, entry: HistoryEntry) {
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
+                // One photo out of History, after asking: it cannot be undone (#55).
+                OutlinedButton(
+                    onClick = { confirmDelete = true },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = androidx.compose.material3.ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error,
+                    ),
+                ) {
+                    Text(stringResource(R.string.delete_from_history))
+                }
                 OutlinedButton(onClick = { vm.show(Screen.Options(entry.photo)) }, Modifier.fillMaxWidth()) {
                     Text(stringResource(R.string.play_again))
                 }
             }
         }
+    }
+
+    if (confirmDelete) {
+        AlertDialog(
+            onDismissRequest = { confirmDelete = false },
+            title = { Text(stringResource(R.string.delete_from_history_title)) },
+            text = { Text(stringResource(R.string.delete_from_history_text)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    confirmDelete = false
+                    vm.deleteFromHistory(entry)
+                }) { Text(stringResource(R.string.delete)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { confirmDelete = false }) { Text(stringResource(R.string.cancel)) }
+            },
+        )
     }
 }
 
