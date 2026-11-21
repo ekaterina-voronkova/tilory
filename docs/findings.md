@@ -184,3 +184,10 @@ Detailed release history. Issues are the index; this file is the detail.
 - Build: local, same toolchain and debug key. APK 65.7 MB (was ~27 MB). Release v0.7.2 deleted (tag kept).
 - Checked: 26 unit tests and lint pass, the APK holds all 207 collection assets, badging shows 0.8.0 / 16. Not
   checked on the phone.
+
+## v0.8.1 — buttons closer together (#60)
+- Commit: cf5b013. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.8.1
+- Change, versionCode 17: #59 (c1045df) — the four main screen buttons in their own Column, 8 dp apart instead of
+  the 16 dp of the outer Column; gaps to Continue and to the History / Settings row unchanged.
+- Build: local, same toolchain and debug key. Release v0.7.3 deleted (tag kept).
+- Checked: unit tests and lint pass, badging shows 0.8.1 / 17. Not checked on the phone.
