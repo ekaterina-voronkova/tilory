@@ -157,3 +157,17 @@ Detailed release history. Issues are the index; this file is the detail.
     ChatGPT export; the transparent exports had a white halo at the edges.
 - Build: local, same toolchain and debug key. Release v0.7.0 deleted (tag kept).
 - Checked: unit tests and lint pass (no new warnings), APK badging shows 0.7.3 / 14. Not checked on the phone.
+
+## v0.7.4 — one launch screen, delete a photo from History (#56)
+- Commit: d36f574. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.7.4
+- Changes, versionCode 15:
+  - #53 (bcda38a, bff0dc8): v0.7.3 showed two screens in a row on a cold start (the system splash with the icon, then
+    the logo overlay). Now the Android 12+ system splash is only the window colour (`drawable/splash_blank.xml` as the
+    icon, no branding image, `splash_branding.png` removed), and `LaunchLogo` is the one launch screen: the icon
+    drawn from its foreground layer and the picture title above, the studio logo (half the width, max 240 dp) a
+    little above the bottom; 1.5 s, fade out, tap skips. #33 closed as superseded.
+  - #55 (82b0251): "Delete from history" in the History viewer, with a confirmation; `deleteFromHistory` removes the
+    entry and runs `cleanUpPhotos`; Surprise memory keeps the photo as solved.
+- Build: local, same toolchain and debug key. Release v0.7.1 deleted (tag kept).
+- Checked: unit tests and lint pass (no new warnings), APK badging shows 0.7.4 / 15; launch screen checked only as a
+  mockup drawn from the real resources. Not checked on the phone.
