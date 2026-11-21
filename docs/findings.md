@@ -171,3 +171,16 @@ Detailed release history. Issues are the index; this file is the detail.
 - Build: local, same toolchain and debug key. Release v0.7.1 deleted (tag kept).
 - Checked: unit tests and lint pass (no new warnings), APK badging shows 0.7.4 / 15; launch screen checked only as a
   mockup drawn from the real resources. Not checked on the phone.
+
+## v0.8.0 — the Tilory collection (#58)
+- Commit: e270271. Release: https://github.com/ekaterina-voronkova/tilory/releases/tag/v0.8.0
+- Changes, versionCode 16:
+  - #57 (7f17efc): 103 of the owner's photos built in under `assets/collection` (an owner-confirmed exception to the
+    privacy rule, recorded in CLAUDE.md). Prepared on the build computer with System.Drawing: EXIF orientation
+    applied (many sources relied on tags 6 / 8), longest side 1600 px, JPEG q82, no EXIF left (93 sources had GPS);
+    360 px thumbnails; `index.json` with id and size only. Size trade-off: 1920 px q85 was 56 MB, 1600 px q82 is
+    37 MB. Grid + "Random from the collection" (Mode.COLLECTION, hidden like Surprise, Surprise settings),
+    `AppData.collectionSolved` for check marks and for Random.
+- Build: local, same toolchain and debug key. APK 65.7 MB (was ~27 MB). Release v0.7.2 deleted (tag kept).
+- Checked: 26 unit tests and lint pass, the APK holds all 207 collection assets, badging shows 0.8.0 / 16. Not
+  checked on the phone.
